@@ -53,3 +53,8 @@
 - `tests/`: 25 pruebas (métodos de pronóstico, ausencia de fuga de información, segmentación, integridad del panel con regresión del solapamiento duplicado, reproducción del resultado oficial). `pytest.ini`, `requirements-dev.txt`.
 - `Dockerfile` multietapa (base, test, runtime; usuario no root) y `.dockerignore`. Probado localmente: pruebas dentro del contenedor y ejecución del backtesting con volumen.
 - `.github/workflows/ci.yml`: pruebas con pytest y construcción/prueba de humo de la imagen en cada push y pull request.
+
+## v0.9 - Cobertura de stock informativa en el alcance del MVP (2026-11-22)
+
+- Panel opcional de cobertura de stock (pantalla 3 y flujo): con stock y plazo de entrega ingresados por el usuario calcula semanas de cobertura y una cantidad referencial a pedir (pronóstico × (plazo + semanas de seguridad) − stock). Es aritmética sobre el pronóstico, informativa y no validada; no hay órdenes de compra automáticas ni predicción de quiebres.
+- Preinforme, presentación, guion, requisitos, modelo de negocio y Documento 07 alineados con el nuevo alcance.

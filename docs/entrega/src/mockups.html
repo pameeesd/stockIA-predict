@@ -145,12 +145,25 @@ const P2=shell(2,1,"Ingreso de datos","Carga un archivo de ventas, asocia sus co
  </div>`,TAG);
 
 /* ---------- Pantalla 3: Resultado de la IA ---------- */
-const prods=[["85123A","WHITE HANGING HEART T-LIGHT HOLDER","Erratic","Media","b-amber",true],["84077","WORLD WAR 2 GLIDERS ASSTD DESIGNS","Erratic","Media","b-amber",false],["16014","SMALL CHINESE STYLE SCISSOR","Lumpy","Baja","b-red",false],["22197","POPCORN HOLDER","Erratic","Media","b-amber",false]];
+const prods=[["85123A","WHITE HANGING HEART T-LIGHT HOLDER","Erratic","Media","b-amber",true],["84077","WORLD WAR 2 GLIDERS ASSTD DESIGNS","Erratic","Media","b-amber",false],["16014","SMALL CHINESE STYLE SCISSOR","Lumpy","Baja","b-red",false]];
 const P3=shell(3,2,"Resultado de la IA · Pronóstico por producto","Estimación de unidades vendidas para la semana siguiente, con su explicación y su fiabilidad histórica.",`
  <div class="grid" style="grid-template-columns:330px 1fr;flex:1;min-height:0">
-  <div class="card" style="padding:14px"><h3>Productos</h3>
+  <div style="display:flex;flex-direction:column;gap:14px;min-height:0"><div class="card" style="padding:14px"><h3>Productos</h3>
    ${prods.map(p=>`<div style="padding:11px 10px;border-radius:10px;margin-bottom:6px;${p[5]?'background:#eef7f5;border:1px solid #bfe6df':'border:1px solid #edf1f7'}"><div style="font-size:12.5px;font-weight:700">${p[1]}</div><div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11.5px"><span class="t-mut">${p[0]} · ${p[2]}</span><span class="badge ${p[4]}">Fiabilidad ${p[3]}</span></div></div>`).join("")}
    <div class="sub" style="font-size:11.5px;margin-top:8px">Fiabilidad = error histórico del método en el segmento del producto (backtesting).</div>
+  </div>
+  <div class="card" style="padding:14px;border:2px solid #bfd0ee">
+   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h3 style="margin:0">Cobertura de stock</h3><span class="badge b-blue" style="font-size:10.5px">OPCIONAL</span></div>
+   <div class="sub" style="font-size:11.5px;margin:0 0 8px">Datos que ingresa el usuario (valores de ejemplo)</div>
+   <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
+    <div><div style="font-size:10px;color:var(--mut);font-weight:700">STOCK ACTUAL</div><div class="input" style="margin:3px 0 0;padding:7px 9px;font-size:13px;color:var(--navy)">1.200</div></div>
+    <div><div style="font-size:10px;color:var(--mut);font-weight:700">PLAZO (SEM.)</div><div class="input" style="margin:3px 0 0;padding:7px 9px;font-size:13px;color:var(--navy)">2</div></div>
+    <div><div style="font-size:10px;color:var(--mut);font-weight:700">SEGURIDAD (SEM.)</div><div class="input" style="margin:3px 0 0;padding:7px 9px;font-size:13px;color:var(--navy)">1</div></div>
+   </div>
+   <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-top:1px solid var(--line)"><span>Cobertura con el stock actual</span><b class="t-red">1,7 sem.</b></div>
+   <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-top:1px solid var(--line)"><span>Cantidad referencial a pedir</span><b class="t-blue">971 uds</b></div>
+   <div class="note" style="font-size:11px;padding:7px 10px;margin-top:4px">724 × (2 + 1) − 1.200. Supone demanda constante igual al pronóstico. <b>Cálculo informativo, no validado.</b></div>
+  </div>
   </div>
   <div class="grid" style="grid-template-rows:auto 1fr auto;gap:14px;min-height:0">
    <div class="grid" style="grid-template-columns:1.4fr 1fr 1fr 1fr;gap:14px">
@@ -168,7 +181,7 @@ const P3=shell(3,2,"Resultado de la IA · Pronóstico por producto","Estimación
    </div>
    <div class="ia"><div class="ttl">IA · datos de entrada y salida</div><div class="io">
      <div><b>Entra:</b> historial semanal del producto (104 semanas), segmento ADI/CV² y α elegido en validación interna.</div>
-     <div><b>Sale:</b> pronóstico puntual para 1 semana, baseline de comparación, segmento y fiabilidad histórica. No calcula un intervalo de confianza.</div></div></div>
+     <div><b>Sale:</b> pronóstico puntual para 1 semana, baseline, segmento y fiabilidad histórica; sin intervalo de confianza. La cobertura de stock es aritmética sobre el pronóstico con datos del usuario (no es IA).</div></div></div>
   </div>
  </div>`,TAG);
 
@@ -274,7 +287,9 @@ const P7=`<section class="page" id="p7" style="background:#fff;flex-direction:co
   ${line("M995,310 L995,360","#d98a0b",false,"No",1007,340)}
   ${box(880,360,230,76,"Baja fiabilidad","Aviso «revisión manual» + baseline visible","warn")}
   ${line("M1110,385 L1200,295","#d98a0b",true,"se muestra con aviso",1122,420)}
-  ${line("M1290,295 L1290,480")}
+  ${line("M1290,295 L1290,340")}
+  ${box(1128,340,230,64,"Cobertura de stock","Opcional · stock y plazo del usuario","user")}
+  ${line("M1290,404 L1290,480")}
   ${box(1128,480,230,80,"Revisión y corrección","Pantalla 5 · alertas y ajuste","user")}
   ${line("M1128,520 L1080,520")}
   ${box(850,490,230,60,"Guardar decisión","Pantalla 4 · historial","ok")}
@@ -288,13 +303,14 @@ const P7=`<section class="page" id="p7" style="background:#fff;flex-direction:co
   <text font-size="13" fill="#34445f"><tspan x="30" y="392">• Datos inválidos: no se procesa; el usuario corrige el mapeo y reintenta.</tspan>
    <tspan x="30" y="418">• Historia corta (&lt;20 semanas con ventas) o patrón lumpy: se marca «Fiabilidad baja»,</tspan><tspan x="46" y="438">se muestra la referencia (media 4 sem.) y se pide revisión manual.</tspan>
    <tspan x="30" y="464">• Pedido extraordinario: se genera una alerta y el usuario decide si se conserva o se</tspan><tspan x="46" y="484">excluye; nada se elimina automáticamente.</tspan>
-   <tspan x="30" y="510">• Error del pronóstico: se mide cada semana contra la venta real (pantalla 6).</tspan></text>
-  <text x="30" y="556" font-size="15" font-weight="800" fill="#14284b">Leyenda</text>
-  <rect x="30" y="572" width="22" height="16" rx="4" fill="#e6f6f3" stroke="#0e9f8e" stroke-width="2"/><text x="60" y="585" font-size="12.5" fill="#34445f">Interviene la IA (entrada y salida anotadas en cada pantalla)</text>
-  <rect x="30" y="598" width="22" height="16" rx="4" fill="#e5edfb" stroke="#3b6fd4" stroke-width="2"/><text x="60" y="611" font-size="12.5" fill="#34445f">Decisión o corrección del usuario</text>
-  <rect x="30" y="624" width="22" height="16" rx="4" fill="#fff3dc" stroke="#d98a0b" stroke-width="2"/><text x="60" y="637" font-size="12.5" fill="#34445f">Punto de control / baja fiabilidad</text>
-  <rect x="30" y="650" width="22" height="16" rx="4" fill="#fde9e7" stroke="#c8453b" stroke-width="2"/><text x="60" y="663" font-size="12.5" fill="#34445f">Error de datos</text>
-  <text x="30" y="700" font-size="12" fill="#66748b">Datos de ejemplo: UCI Online Retail II (Chen, 2012), CC BY 4.0. Los mockups no representan un sistema en operación.</text>
+   <tspan x="30" y="510">• Error del pronóstico: se mide cada semana contra la venta real (pantalla 6).</tspan>
+   <tspan x="30" y="536">• Cobertura de stock: opcional e informativa; usa el stock y el plazo que ingresa el usuario.</tspan></text>
+  <text x="30" y="574" font-size="15" font-weight="800" fill="#14284b">Leyenda</text>
+  <rect x="30" y="588" width="22" height="16" rx="4" fill="#e6f6f3" stroke="#0e9f8e" stroke-width="2"/><text x="60" y="601" font-size="12.5" fill="#34445f">Interviene la IA (entrada y salida anotadas en cada pantalla)</text>
+  <rect x="30" y="610" width="22" height="16" rx="4" fill="#e5edfb" stroke="#3b6fd4" stroke-width="2"/><text x="60" y="623" font-size="12.5" fill="#34445f">Decisión, corrección o dato que ingresa el usuario</text>
+  <rect x="30" y="632" width="22" height="16" rx="4" fill="#fff3dc" stroke="#d98a0b" stroke-width="2"/><text x="60" y="645" font-size="12.5" fill="#34445f">Punto de control / baja fiabilidad</text>
+  <rect x="30" y="654" width="22" height="16" rx="4" fill="#fde9e7" stroke="#c8453b" stroke-width="2"/><text x="60" y="667" font-size="12.5" fill="#34445f">Error de datos</text>
+  <text x="30" y="708" font-size="12" fill="#66748b">Datos de ejemplo: UCI Online Retail II (Chen, 2012), CC BY 4.0. Los mockups no representan un sistema en operación.</text>
  </svg></section>`;
 
 /* ---------- Montaje ---------- */

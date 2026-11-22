@@ -105,7 +105,7 @@ tr:nth-child(even) td{background:#f7f9fd}
       <table style="font-size:15.5px">
         <tr><th style="width:27%">Lienzo</th><th>Respuesta</th></tr>
         <tr><td><b>Segmento</b></td><td>Usa: analista de planificación. Paga y decide: dueño o gerente de operaciones.</td></tr>
-        <tr><td><b>Propuesta de valor</b></td><td>Pronóstico semanal por producto, patrón de demanda y alertas explicables, desde un CSV/XLSX.</td></tr>
+        <tr><td><b>Propuesta de valor</b></td><td>Pronóstico semanal por producto, patrón de demanda, alertas explicables y cobertura de stock informativa, desde un CSV/XLSX.</td></tr>
         <tr><td><b>Canal</b></td><td>Aplicación web con historial y exportación.</td></tr>
         <tr><td><b>Ahorro / ingreso</b></td><td>Suscripción por tramo de artículos (£19 · £39 · £59 por validar). Ahorro de tiempo: por medir.</td></tr>
         <tr><td><b>Costos clave</b></td><td>Desarrollo, nube (bajo), soporte y carga de datos. Sin API de IA de pago.</td></tr>
@@ -140,7 +140,7 @@ tr:nth-child(even) td{background:#f7f9fd}
   <table>
     <tr><th style="width:15%">Tipo</th><th style="width:40%">Riesgo o supuesto</th><th>Mitigación</th></tr>
     <tr><td><span class="pill" style="background:#e5edfb;color:var(--blue)">Técnico</span></td><td>Mejora modesta (≈2,1 %) y error alto (~77 %).</td><td>Mostrar siempre la referencia y el error histórico; no automatizar compras; meta de 5 % en piloto.</td></tr>
-    <tr><td><span class="pill" style="background:var(--amberbg);color:var(--amber)">Datos</span></td><td>Ventas observadas ≠ demanda real: sin stock ni ventas perdidas; datos de 2009–2011 del Reino Unido.</td><td>Declarar el alcance; pedir inventario en una fase futura; validar con datos recientes.</td></tr>
+    <tr><td><span class="pill" style="background:var(--amberbg);color:var(--amber)">Datos</span></td><td>Ventas observadas ≠ demanda real: sin stock ni ventas perdidas; datos de 2009–2011. La cobertura de stock supone demanda constante y usa datos del usuario.</td><td>Declarar el alcance; cobertura marcada como informativa con su fórmula visible; validar con inventario real y datos recientes.</td></tr>
     <tr><td><span class="pill" style="background:#e5edfb;color:var(--blue)">Técnico</span></td><td>Pedidos grandes distorsionan el pronóstico; una factura grande no prueba que el cliente sea mayorista.</td><td>Alertas con revisión humana; no eliminar ni etiquetar clientes automáticamente.</td></tr>
     <tr><td><span class="pill" style="background:#fde9e7;color:var(--red)">Ético</span></td><td>Reidentificación por identificadores de clientes.</td><td>Customer ID excluido del modelo, de pantallas y de exportaciones.</td></tr>
     <tr><td><span class="pill" style="background:#e5f4ec;color:#2f8f5b">Adopción</span></td><td>Confianza excesiva o rechazo del pronóstico; supuesto de que hay clientes que pagarían.</td><td>Fiabilidad y límites visibles en cada resultado; entrevistas de validación antes de integraciones.</td></tr>

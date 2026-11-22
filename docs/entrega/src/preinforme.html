@@ -98,13 +98,14 @@ tr:nth-child(even) td{background:var(--soft)}
 <tr><td>C. Híbrido que elige un modelo por patrón de demanda</td><td>75,93 %, sesgo −13,45 %</td><td>Alternativa: menor error total, pero subestima más y mejora al baseline en solo 49 % de los productos.</td></tr>
 <tr><td class="teal b">D. TSB + clasificación ADI/CV² + alertas</td><td class="teal b">77,00 %, sesgo −6,13 %</td><td><b>Elegida:</b> un único método transparente, con mejor equilibrio entre sesgo y consistencia por producto (59 % de los productos mejoran).</td></tr>
 </table>
-<p><b>Qué le entregaríamos al negocio:</b> una aplicación web que (1) carga y valida su historial de ventas, (2) clasifica cada artículo como smooth, erratic, intermittent o lumpy, (3) pronostica con TSB las unidades de la semana siguiente mostrando la referencia y la fiabilidad del resultado, (4) alerta de pedidos de volumen inusual para que una persona decida y (5) registra y mide el error cada semana. <b>Tipo de IA:</b> Predicción, con TSB como método adaptativo (ver sección 4). No incluimos compras automáticas, porque faltan los datos para hacerlas con fiabilidad.</p>
+<p><b>Qué le entregaríamos al negocio:</b> una aplicación web que (1) carga y valida su historial de ventas, (2) clasifica cada artículo como smooth, erratic, intermittent o lumpy, (3) pronostica con TSB las unidades de la semana siguiente mostrando la referencia y la fiabilidad del resultado, (4) alerta de pedidos de volumen inusual para que una persona decida, (5) registra y mide el error cada semana y (6) ofrece, de forma opcional, un panel de <b>cobertura de stock</b>: con el stock y el plazo de entrega que ingresa el usuario calcula cuántas semanas le alcanza lo que tiene y una cantidad referencial a pedir (pronóstico × (plazo + semanas de seguridad) − stock). <b>Tipo de IA:</b> Predicción, con TSB como método adaptativo (ver sección 4); la cobertura es aritmética sobre ese pronóstico, no un modelo de IA. No incluimos órdenes de compra automáticas ni predicción de quiebres, porque faltan los datos para validarlas.</p>
 <p><b>Resultados que esperamos y mejoras para el negocio:</b></p>
 <ul>
 <li><b>Ya medido con sus datos:</b> 2,10 % menos error que el promedio móvil, mejora en 59 % de los productos y sesgo de −6,13 %.</li>
 <li><b>Meta a validar en un piloto:</b> mejora relativa ≥ 5 % (WAPE ≤ 74,7 %) con datos recientes del negocio.</li>
 <li><b>Mejora de proceso (hipótesis):</b> revisión focalizada, pues el 81 % de las unidades está en artículos irregulares; y menos tiempo de preparación semanal, que aún no medimos.</li>
-<li><b>Fase futura</b> (requiere inventario, plazos y ventas perdidas, que el dataset no tiene): extender el pronóstico a cantidades de reposición.</li>
+<li><b>Cobertura de stock (informativa):</b> da a la persona una referencia rápida de cuándo y cuánto reponer; no está validada porque el dataset no tiene inventario ni plazos.</li>
+<li><b>Fase futura</b> (requiere inventario, plazos y ventas perdidas reales): validar la reposición y medir quiebres y nivel de servicio.</li>
 </ul>
 
 <h2><span class="n">6.</span>Impacto esperado: antes y después</h2>
@@ -113,6 +114,7 @@ tr:nth-child(even) td{background:var(--soft)}
 <tr><td>Pronóstico semanal</td><td>Promedio móvil o planilla, igual para todos los productos; error 78,65 %.</td><td>TSB por producto con la referencia visible; error 77,00 % (−2,10 %).</td></tr>
 <tr><td>Tipo de demanda</td><td>Sin clasificar; todos los artículos se tratan igual.</td><td>Cada artículo se clasifica (smooth, erratic, intermittent, lumpy) y muestra su fiabilidad histórica.</td></tr>
 <tr><td>Pedidos extraordinarios</td><td>Se detectan solo si alguien revisa las facturas; distorsionan el promedio.</td><td>Alerta con su motivo (veces la mediana del artículo); el usuario decide conservar o excluir.</td></tr>
+<tr><td>Reposición</td><td>Se estima a mano con el mismo promedio, sin considerar el tipo de demanda.</td><td>Cobertura en semanas y cantidad referencial a partir del pronóstico, con stock y plazo del usuario (informativa).</td></tr>
 <tr><td>Trazabilidad</td><td>Cálculos dispersos en archivos.</td><td>Historial de ejecuciones con corte, método y parámetros.</td></tr>
 <tr><td>Tiempo de preparación</td><td colspan="2">No medido en este estudio. Se medirá en el piloto (minutos de preparación semanal antes y después).</td></tr>
 </table>
@@ -122,7 +124,7 @@ tr:nth-child(even) td{background:var(--soft)}
 <table>
 <tr><th style="width:21%">Bloque del lienzo</th><th>Respuesta</th></tr>
 <tr><td>Segmento de usuarios</td><td>Usa: analista de planificación y responsable de catálogo. Paga y decide: dueño o gerente de operaciones de un comercio electrónico pyme.</td></tr>
-<tr><td>Propuesta de valor</td><td>Pronóstico semanal por producto (TSB), clasificación del patrón de demanda y alertas de volumen inusual con revisión humana, a partir de un archivo CSV/XLSX.</td></tr>
+<tr><td>Propuesta de valor</td><td>Pronóstico semanal por producto (TSB), clasificación del patrón de demanda y alertas de volumen inusual con revisión humana y cobertura de stock informativa, a partir de un archivo CSV/XLSX.</td></tr>
 <tr><td>Canal de entrega</td><td>Aplicación web: carga de archivo, tablero, historial y exportación CSV.</td></tr>
 <tr><td>Ahorro o ingreso</td><td>Ingreso: suscripción mensual por tramo de artículos analizados (hipótesis a validar: £19, £39 y £59 al mes) y servicio puntual de incorporación de datos. Beneficio del cliente: menos tiempo de preparación y revisión focalizada (por medir).</td></tr>
 <tr><td>Costos clave</td><td>Desarrollo y mantenimiento, alojamiento en la nube (bajo: el cálculo de TSB toma segundos), soporte e incorporación de datos. No usa APIs de IA de pago.</td></tr>
@@ -148,7 +150,7 @@ tr:nth-child(even) td{background:var(--soft)}
 <table>
 <tr><th style="width:5%">N.º</th><th style="width:15%">Tipo</th><th style="width:36%">Riesgo o supuesto</th><th>Mitigación</th></tr>
 <tr><td>1</td><td>Técnico</td><td>La mejora sobre la línea base es modesta (≈2,1 %) y el error absoluto es alto (~77 %).</td><td>Mostrar siempre la referencia y el error histórico; no automatizar compras; meta de 5 % a validar en un piloto.</td></tr>
-<tr><td>2</td><td>Datos</td><td>Las ventas observadas no son demanda real: no hay stock, ventas perdidas ni compras; los datos son de 2009–2011 y del Reino Unido.</td><td>Declarar el alcance; solicitar inventario en una fase futura; reentrenar y validar con datos recientes antes de cualquier uso real.</td></tr>
+<tr><td>2</td><td>Datos</td><td>Las ventas observadas no son demanda real: no hay stock, ventas perdidas ni compras; datos de 2009–2011 del Reino Unido. La cobertura de stock supone demanda constante y usa datos que ingresa el usuario.</td><td>Declarar el alcance; etiquetar la cobertura como informativa y mostrar su fórmula; validar con inventario real y datos recientes antes de cualquier uso.</td></tr>
 <tr><td>3</td><td>Técnico</td><td>Pedidos de gran volumen distorsionan el pronóstico; una factura grande no prueba que el cliente sea mayorista.</td><td>Alertas transparentes con revisión humana; no eliminar automáticamente ni etiquetar clientes.</td></tr>
 <tr><td>4</td><td>Ético / privacidad</td><td>Exposición o reidentificación a partir de identificadores de clientes.</td><td>Excluir <i>Customer ID</i> del modelo, de pantallas y exportaciones.</td></tr>
 <tr><td>5</td><td>Adopción</td><td>Usuarios que confían en exceso en el pronóstico o lo ignoran; supuesto de que existe un cliente dispuesto a pagar.</td><td>Mostrar fiabilidad y límites en cada resultado; validar la necesidad con entrevistas (protocolo en el repositorio) antes de invertir en integraciones.</td></tr>
@@ -157,8 +159,8 @@ tr:nth-child(even) td{background:var(--soft)}
 <h2><span class="n">11.</span>Alcance del MVP y stack preliminar</h2>
 <table>
 <tr><th style="width:50%">Entra en la Evaluación Sumativa 4</th><th>No entra</th></tr>
-<tr><td><ul style="margin:0"><li>Carga de CSV/XLSX con validación de calidad.</li><li>Series semanales y segmentación ADI/CV².</li><li>Pronóstico TSB con referencia (promedio móvil 4 semanas).</li><li>Alertas de volumen inusual y registro de la decisión del usuario.</li><li>Historial de ejecuciones y panel de métricas; exportación CSV.</li></ul></td>
-<td><ul style="margin:0"><li>Cálculo de stock, quiebres o cantidades de compra; órdenes de compra.</li><li>Integración con ERP/POS; multiusuario con pagos.</li><li>Clasificar clientes como mayoristas.</li></ul></td></tr>
+<tr><td><ul style="margin:0"><li>Carga de CSV/XLSX con validación de calidad.</li><li>Series semanales y segmentación ADI/CV².</li><li>Pronóstico TSB con referencia (promedio móvil 4 semanas).</li><li>Alertas de volumen inusual y registro de la decisión del usuario.</li><li>Historial de ejecuciones y panel de métricas; exportación CSV.</li><li>Cobertura de stock informativa (stock y plazo ingresados por el usuario).</li></ul></td>
+<td><ul style="margin:0"><li>Órdenes de compra y reposición automática; predicción de quiebres.</li><li>Integración con ERP/POS; multiusuario con pagos.</li><li>Clasificar clientes como mayoristas.</li></ul></td></tr>
 </table>
 <p><b>Stack evaluado:</b> Python 3.13 (pandas, NumPy, scikit-learn y LightGBM para el benchmark), implementación propia de TSB (sin API de IA externa), interfaz web con Streamlit, SQLite para el historial, Docker y GitHub Actions para ejecución y pruebas reproducibles.</p>
 

@@ -37,4 +37,5 @@ Asignatura TI2082 *Aplicaciones de Inteligencia Artificial* · Fecha de entrega:
 - Predicción de **ventas observadas**; el dataset no tiene stock, ventas perdidas ni costos: no se afirma reducción de quiebres ni ahorro económico.
 - TSB es un método estadístico, no Machine Learning supervisado; la pauta admite "Predicción" como tipo de IA.
 - Mejora modesta (WAPE 77,00 % vs 78,65 %, ≈2,10 % relativa); TSB supera a la línea base en 4 de 6 bloques.
+- La cobertura de stock (pantalla 3) es informativa: usa stock y plazo ingresados por el usuario, supone demanda constante y no está validada; no hay órdenes de compra automáticas ni predicción de quiebres.
 - Los clientes del dataset no están etiquetados como mayoristas.

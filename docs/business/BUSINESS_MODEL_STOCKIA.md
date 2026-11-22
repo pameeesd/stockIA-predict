@@ -26,8 +26,9 @@ Comercios electrónicos pequeños y medianos con catálogo heterogéneo, patrone
 - Cola de alertas de volúmenes transaccionales inusuales.
 - Explicación del pronóstico y visualización del historial.
 - Exportación de resultados.
+- Cobertura de stock informativa: con el stock y el plazo que ingresa el usuario, semanas de cobertura y cantidad referencial a pedir (pronóstico × (plazo + semanas de seguridad) − stock). No validada.
 
-Fuera de alcance hasta obtener datos: cálculo de stock de seguridad, predicción de quiebres, cantidades de compra y automatización de purchase orders. El dataset no contiene stock, órdenes pendientes, lead times o costes.
+Fuera de alcance hasta obtener datos: órdenes de compra automáticas, predicción de quiebres y cantidades de compra validadas (solo se ofrece la cobertura de stock informativa descrita arriba). El dataset no contiene stock, órdenes pendientes, lead times o costes.
 
 ## Competencia
 
