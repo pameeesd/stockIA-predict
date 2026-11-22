@@ -25,3 +25,10 @@
 - Se agrega protocolo de validación con clientes (`docs/validation/`).
 - Se agregan salidas agregadas de la auditoría EDA inicial (`reports/eda/`).
 - Documento 03 actualizado a la versión 1.1.
+
+## v0.5 - Reconstrucción del backtesting multi-origen
+
+- Se agrega `scripts/05_backtesting_model_selection.py` y salidas en `reports/backtesting/`.
+- Reproduce exactamente TSB seleccionado (77,21% WAPE, -5,57% sesgo), baselines, Croston/SBA, segmentación por origen y métricas por SKU del Documento 06.
+- Los modelos ML e híbridos difieren del documento por falta de especificación original; ver `BACKTESTING_RECONSTRUCTION.md`.
+- Se agrega `lightgbm` a `requirements.txt`.

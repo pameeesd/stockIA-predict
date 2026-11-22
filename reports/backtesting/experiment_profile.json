@@ -1,0 +1,53 @@
+{
+  "aggregated_rows_before_panel": 188323,
+  "raw_case_sensitive_codes": 4775,
+  "case_normalized_codes": 4775,
+  "case_variants_merged": 0,
+  "calendar_weeks": 104,
+  "weeks_with_no_recorded_UK_sales": [
+    "2009-12-28",
+    "2010-12-27"
+  ],
+  "codes_with_minimum_activity": 2204,
+  "known_non_merchandise_codes_excluded": [
+    "BANK CHARGES",
+    "C2",
+    "DOT",
+    "GIFT_0001_30",
+    "M",
+    "POST"
+  ],
+  "selected_item_codes": 2201,
+  "selection_rule": ">=20 nonzero weeks within first 56 training weeks",
+  "first_week": "2009-12-07",
+  "last_week": "2011-11-28",
+  "cohort_rule": ">=20 positive weeks in first 56 calendar weeks, known non-merchandise codes excluded",
+  "cohort_products": 2201,
+  "products_with_sales_in_outer_blocks": 1957,
+  "outer_observations": 105648,
+  "outer_actual_units": 2788116.0,
+  "origins": {
+    "1": "2011-01-03",
+    "2": "2011-02-28",
+    "3": "2011-04-25",
+    "4": "2011-06-20",
+    "5": "2011-08-15",
+    "6": "2011-10-10"
+  },
+  "block_weeks": 8,
+  "alpha_grid": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "segmentation": {
+    "ADI_cut": 1.32,
+    "CV2_cut": 0.49,
+    "history": "weeks before each origin"
+  },
+  "ml_included": true,
+  "runtime_seconds": 67.2
+}

@@ -76,12 +76,15 @@ stockIA-predict/
 ├── reports/
 │   ├── eda/                          # Salidas agregadas de la auditoría inicial
 │   ├── benchmark/                    # Primer benchmark (Documento 04)
+│   ├── backtesting/                  # Backtesting multi-origen (Documento 06)
 │   └── segment_diagnostics/          # Segmentación y facturas (Documento 05)
 ├── scripts/
 │   ├── 01_audit_dataset.py
 │   ├── 02_train_forecasting_models.py
 │   ├── 03_segment_model_experiment.py
-│   └── 04_invoice_spike_diagnostics.py
+│   ├── 04_invoice_spike_diagnostics.py
+│   └── 05_backtesting_model_selection.py
+├── BACKTESTING_RECONSTRUCTION.md
 ├── EXPERIMENT_PROTOCOL.md
 ├── RESULTS_SUMMARY.md
 ├── SEGMENT_AND_VOLUME_DIAGNOSTICS.md
@@ -89,7 +92,7 @@ stockIA-predict/
 └── CHANGELOG.md
 ```
 
-> El script del backtesting multi-origen del Documento 06 (Croston/SBA/TSB, híbridos, LightGBM) aún no está incluido en `scripts/`.
+> El backtesting del Documento 06 se reconstruyó en `scripts/05_backtesting_model_selection.py`: TSB, baselines, Croston/SBA y segmentación se reproducen exactamente; ML e híbridos difieren. Ver [`BACKTESTING_RECONSTRUCTION.md`](BACKTESTING_RECONSTRUCTION.md).
 
 ## Reproducibilidad
 
@@ -105,6 +108,7 @@ pip install -r requirements.txt
 Con el panel semanal incluido:
 
 ```bash
+python scripts/05_backtesting_model_selection.py               # selección final (Documento 06)
 python scripts/03_segment_model_experiment.py
 python scripts/03_segment_model_experiment.py --write-predictions   # predicciones detalladas (archivo grande)
 ```
