@@ -49,11 +49,14 @@ El código original del Documento 06 no estaba disponible; este script lo recons
 
 ```bash
 python -m venv .venv && .venv/Scripts/Activate.ps1   # Linux/macOS: source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 
+python -m pytest                                                    # pruebas, incluida la reproducción del resultado
 # Resultado oficial con el panel incluido (~1-2 min)
 python scripts/05_backtesting_model_selection.py
 python scripts/05_backtesting_model_selection.py --skip-ml          # solo estadísticos
+
+# En contenedor (ver Dockerfile): docker build -t stockia-predict . && docker run --rm stockia-predict
 
 # Desde el Excel original (data/raw/online_retail_II.xlsx, no versionado)
 python scripts/01_audit_dataset.py --input data/raw/online_retail_II.xlsx --output reports/generated

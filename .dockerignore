@@ -1,0 +1,21 @@
+# Control de versiones y entornos locales
+.git
+.github
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+
+# Datos originales y material de trabajo (no van en la imagen)
+_fuentes
+data/raw
+*.zip
+*.xlsx
+
+# Documentación y resultados: solo se necesita el perfil de la auditoría para las pruebas
+docs
+reports/*
+!reports/eda
+reports/eda/*
+!reports/eda/dataset_profile.json

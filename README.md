@@ -1,5 +1,7 @@
 # StockIA Predict
 
+![CI](https://github.com/pameeesd/stockIA-predict/actions/workflows/ci.yml/badge.svg)
+
 **Pronóstico semanal de ventas por artículo y alertas de volumen inusual para comercio electrónico.**
 Proyecto académico (TI2082 Aplicaciones de Inteligencia Artificial) con enfoque de portafolio.
 
@@ -45,17 +47,31 @@ Detalle, tablas por bloque, segmento y producto: [`docs/RESULTADOS.md`](docs/RES
 │   ├── 01_audit_dataset.py            # Auditoría y panel semanal desde el Excel
 │   ├── 05_backtesting_model_selection.py   # Backtesting y selección de modelo
 │   └── 02–04_*.py             # Diagnóstico exploratorio v0.3
-├── DATASET_CITATION.md · CHANGELOG.md · requirements.txt
+├── tests/                     # Pruebas (pytest)
+├── Dockerfile · .dockerignore # Contenedor de ejecución y de pruebas
+├── .github/workflows/ci.yml   # Integración continua
+├── DATASET_CITATION.md · CHANGELOG.md · requirements*.txt
 ```
 
-## Reproducir
+## Reproducir, probar y ejecutar en contenedor
 
 ```bash
 python -m venv .venv
 .venv/Scripts/Activate.ps1          # Linux/macOS: source .venv/bin/activate
-pip install -r requirements.txt
-python scripts/05_backtesting_model_selection.py      # ~1-2 min
+pip install -r requirements-dev.txt
+python scripts/05_backtesting_model_selection.py      # ~1-2 min, resultados en reports/backtesting/
+python -m pytest                                      # 25 pruebas, ~10 s
 ```
+
+Con Docker (no requiere instalar Python):
+
+```bash
+docker build -t stockia-predict .                                  # imagen de ejecución
+docker run --rm -v "${PWD}/reports/backtesting:/app/reports/backtesting" stockia-predict
+docker build --target test -t stockia-predict:test . && docker run --rm stockia-predict:test
+```
+
+Las pruebas verifican los métodos de pronóstico (cálculo a mano de TSB, ausencia de fuga de información, segmentación), la integridad del panel (incluida la regresión del solapamiento duplicado del 1–9 dic 2010) y que el resultado oficial se reproduce (TSB 77,00 % · línea base 78,65 %). GitHub Actions ejecuta las pruebas y construye la imagen en cada *push* y *pull request* (`.github/workflows/ci.yml`).
 
 Para regenerar el panel desde los datos originales, descarga `online_retail_II.xlsx` de UCI en `data/raw/` (no se versiona) y ejecuta `scripts/01_audit_dataset.py`. Más en [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md).
 

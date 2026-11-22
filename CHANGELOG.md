@@ -47,3 +47,9 @@
 - `docs/entrega/`: preinforme (portada + 3 páginas), mockups (6 pantallas + flujo con rama de error y anotaciones de IA) y presentación (5 diapositivas), con fuentes HTML y guion de exposición.
 - Documentos 07 y 08 actualizados con las cifras corregidas; Documentos 03–06 archivados en `docs/archive/word_v1/`; mockups v1 reemplazados.
 - Preinforme ampliado: introducción y caso de estudio (negocio anonimizado con sus datos reales), solución elegida frente a alternativas y resultados esperados; ahora portada + 4 páginas. Presentación y guion alineados.
+
+## v0.8 - Pruebas, contenedor e integración continua (2026-11-22)
+
+- `tests/`: 25 pruebas (métodos de pronóstico, ausencia de fuga de información, segmentación, integridad del panel con regresión del solapamiento duplicado, reproducción del resultado oficial). `pytest.ini`, `requirements-dev.txt`.
+- `Dockerfile` multietapa (base, test, runtime; usuario no root) y `.dockerignore`. Probado localmente: pruebas dentro del contenedor y ejecución del backtesting con volumen.
+- `.github/workflows/ci.yml`: pruebas con pytest y construcción/prueba de humo de la imagen en cada push y pull request.

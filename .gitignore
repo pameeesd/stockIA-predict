@@ -37,3 +37,6 @@ _fuentes/
 *.xlsx
 *.xls
 ~$*
+
+# Pruebas
+.pytest_cache/
