@@ -59,7 +59,7 @@ tr:nth-child(even) td{background:var(--soft)}
 <div class="kpis">
  <div class="kpi"><b>62 %</b><span>de las combinaciones artículo-semana no registra ninguna venta (4.775 artículos × 104 semanas)</span></div>
  <div class="kpi"><b>81 %</b><span>de las unidades evaluadas pertenece a artículos de demanda irregular (erratic 55 % + lumpy 26 %)</span></div>
- <div class="kpi"><b>78,65 %</b><span>error (WAPE) del método de referencia, promedio móvil de 4 semanas: ~79 unidades de error por cada 100 vendidas</span></div>
+ <div class="kpi"><b>78,65 %</b><span>error (WAPE) del método de referencia (promedio móvil de 4 semanas): ~79 unidades de error por cada 100 vendidas; no es el % de predicciones erradas</span></div>
 </div>
 <ul>
 <li><b>Errores de pronóstico:</b> en artículos <i>lumpy</i> el método de referencia llega a 97,10 % de error y en <i>erratic</i> a 77,93 % (6 bloques de evaluación de 8 semanas, 2.201 artículos).</li>
@@ -87,7 +87,8 @@ tr:nth-child(even) td{background:var(--soft)}
 <tr><td>HGB Hurdle Poisson (Machine Learning)</td><td>78,41 %</td><td>−1,10 %</td></tr>
 <tr><td class="teal b">TSB (solución elegida)</td><td class="teal b">77,00 %</td><td>−6,13 %</td></tr>
 </table>
-<p class="src">TSB reduce el error ≈2,10 % respecto de la línea base (1,65 puntos porcentuales) y la supera en 4 de 6 bloques y en el 59 % de los productos. La mejora es <b>modesta</b>: es una prueba de concepto, no un sistema para automatizar compras.</p>
+<div class="note"><b>Cómo leer el WAPE.</b> Es la suma de las unidades de error (en todos los productos y semanas) dividida por las unidades vendidas; <u>no es el porcentaje de predicciones erradas</u> ni una probabilidad de acierto. Un WAPE de 77 % indica que, producto por producto y semana a semana, el pronóstico es aproximado porque la demanda es muy irregular (62 % de las semanas sin venta). En el total acumulado el sesgo es de solo −6,13 %: los errores por producto se compensan en parte. Por eso el pronóstico se usa como referencia, junto con su fiabilidad, y no como certeza.</div>
+<p class="src">TSB reduce el error ≈2,1 % respecto de la línea base (≈1,6 puntos porcentuales) y la supera en 4 de 6 bloques y en el 59 % de los productos. La mejora es <b>modesta</b>: es una prueba de concepto, no un sistema para automatizar compras.</p>
 
 <h2><span class="n">5.</span>Solución propuesta y resultados esperados</h2>
 <p><b>Solución elegida y por qué.</b> Comparamos cuatro opciones con los mismos datos y el mismo protocolo (6 bloques externos de 8 semanas):</p>
@@ -101,7 +102,7 @@ tr:nth-child(even) td{background:var(--soft)}
 <p><b>Qué le entregaríamos al negocio:</b> una aplicación web que (1) carga y valida su historial de ventas, (2) clasifica cada artículo como smooth, erratic, intermittent o lumpy, (3) pronostica con TSB las unidades de la semana siguiente mostrando la referencia y la fiabilidad del resultado, (4) alerta de pedidos de volumen inusual para que una persona decida, (5) registra y mide el error cada semana y (6) ofrece, de forma opcional, un panel de <b>cobertura de stock</b>: con el stock y el plazo de entrega que ingresa el usuario calcula cuántas semanas le alcanza lo que tiene y una cantidad referencial a pedir (pronóstico × (plazo + semanas de seguridad) − stock). <b>Tipo de IA:</b> Predicción, con TSB como método adaptativo (ver sección 4); la cobertura es aritmética sobre ese pronóstico, no un modelo de IA. No incluimos órdenes de compra automáticas ni predicción de quiebres, porque faltan los datos para validarlas.</p>
 <p><b>Resultados que esperamos y mejoras para el negocio:</b></p>
 <ul>
-<li><b>Ya medido con sus datos:</b> 2,10 % menos error que el promedio móvil, mejora en 59 % de los productos y sesgo de −6,13 %.</li>
+<li><b>Ya medido con sus datos:</b> ≈2,1 % menos error que el promedio móvil, mejora en 59 % de los productos y sesgo de −6,13 %.</li>
 <li><b>Meta a validar en un piloto:</b> mejora relativa ≥ 5 % (WAPE ≤ 74,7 %) con datos recientes del negocio.</li>
 <li><b>Mejora de proceso (hipótesis):</b> revisión focalizada, pues el 81 % de las unidades está en artículos irregulares; y menos tiempo de preparación semanal, que aún no medimos.</li>
 <li><b>Cobertura de stock (informativa):</b> da a la persona una referencia rápida de cuándo y cuánto reponer; no está validada porque el dataset no tiene inventario ni plazos.</li>
@@ -111,7 +112,7 @@ tr:nth-child(even) td{background:var(--soft)}
 <h2><span class="n">6.</span>Impacto esperado: antes y después</h2>
 <table>
 <tr><th style="width:22%">Aspecto</th><th>Antes (proceso actual)</th><th>Después (con StockIA)</th></tr>
-<tr><td>Pronóstico semanal</td><td>Promedio móvil o planilla, igual para todos los productos; error 78,65 %.</td><td>TSB por producto con la referencia visible; error 77,00 % (−2,10 %).</td></tr>
+<tr><td>Pronóstico semanal</td><td>Promedio móvil o planilla, igual para todos los productos; error 78,65 %.</td><td>TSB por producto con la referencia visible; error 77,00 % (≈−2,1 %).</td></tr>
 <tr><td>Tipo de demanda</td><td>Sin clasificar; todos los artículos se tratan igual.</td><td>Cada artículo se clasifica (smooth, erratic, intermittent, lumpy) y muestra su fiabilidad histórica.</td></tr>
 <tr><td>Pedidos extraordinarios</td><td>Se detectan solo si alguien revisa las facturas; distorsionan el promedio.</td><td>Alerta con su motivo (veces la mediana del artículo); el usuario decide conservar o excluir.</td></tr>
 <tr><td>Reposición</td><td>Se estima a mano con el mismo promedio, sin considerar el tipo de demanda.</td><td>Cobertura en semanas y cantidad referencial a partir del pronóstico, con stock y plazo del usuario (informativa).</td></tr>

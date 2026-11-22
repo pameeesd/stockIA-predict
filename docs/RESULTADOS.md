@@ -10,7 +10,7 @@
 - 6 bloques externos disjuntos de 8 semanas (2011-01-03 a 2011-11-28), pronóstico de un paso adelante (rolling).
 - En cada bloque, el candidato y su parámetro se eligen solo con las 8 semanas inmediatamente anteriores.
 - 105.648 observaciones artículo-semana · 2.788.116 unidades reales.
-- Métrica principal: **WAPE** = Σ|error| / Σ ventas reales. También MAE, RMSE y sesgo agregado.
+- Métrica principal: **WAPE** = Σ|error| / Σ ventas reales (unidades de error por unidad vendida; **no** es el porcentaje de predicciones erradas ni una probabilidad de acierto). También MAE, RMSE y sesgo agregado.
 
 ## Resultado global (fuera de muestra)
 
@@ -30,7 +30,7 @@
 | Última semana | 90,25 % | 23,82 | 102,24 | -3,02 % |
 | Croston (selección interna) | 92,14 % | 24,32 | 84,52 | +9,03 % |
 
-TSB reduce el WAPE 1,65 puntos porcentuales frente al baseline (≈ **2,10 %** relativo).
+TSB reduce el WAPE ≈1,6 puntos porcentuales frente al baseline (≈ **2,1 %** relativo; exacto: 1,64 pp y 2,09 %).
 
 ## Estabilidad por bloque (WAPE)
 

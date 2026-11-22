@@ -4,8 +4,10 @@
 #   docker run --rm -v "${PWD}/reports/backtesting:/app/reports/backtesting" stockia-predict
 #   docker build --target test -t stockia-predict:test .      # imagen con pruebas
 #   docker run --rm stockia-predict:test
+#   docker build --target app -t stockia-app .                # aplicación web
+#   docker run --rm -p 8501:8501 -v stockia-data:/app/data/app stockia-app   # http://localhost:8501
 #
-# Etapas: base (dependencias y código) -> test (+pytest) -> runtime (por defecto, última).
+# Etapas: base (dependencias y código) -> test (+pytest) -> app (Streamlit) -> runtime (por defecto, última).
 
 FROM python:3.13-slim AS base
 
@@ -26,9 +28,13 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+COPY --chown=app:app stockia/ stockia/
 COPY --chown=app:app scripts/ scripts/
+COPY --chown=app:app app/ app/
+COPY --chown=app:app .streamlit/ .streamlit/
 COPY --chown=app:app data/processed/ data/processed/
-RUN mkdir -p reports/backtesting && chown -R app:app /app
+COPY --chown=app:app data/demo/ data/demo/
+RUN mkdir -p reports/backtesting data/app && chown -R app:app /app
 
 
 # ---------------------------------------------------------------- pruebas
@@ -43,6 +49,16 @@ COPY --chown=app:app reports/eda/dataset_profile.json reports/eda/dataset_profil
 
 USER app
 CMD ["python", "-m", "pytest"]
+
+
+# ---------------------------------------------------------------- aplicación web
+FROM base AS app
+
+EXPOSE 8501
+VOLUME ["/app/data/app"]
+USER app
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s   CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health')" || exit 1
+CMD ["streamlit", "run", "app/streamlit_app.py", "--server.address=0.0.0.0", "--server.port=8501"]
 
 
 # ---------------------------------------------------------------- ejecución (por defecto)

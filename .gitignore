@@ -40,3 +40,7 @@ _fuentes/
 
 # Pruebas
 .pytest_cache/
+
+# Herramientas locales y base de datos de la app
+.claude/
+data/app/

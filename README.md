@@ -1,87 +1,146 @@
 # StockIA Predict
 
 ![CI](https://github.com/pameeesd/stockIA-predict/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.13-3776ab)
+![Streamlit](https://img.shields.io/badge/app-Streamlit-ff4b4b)
+![Docker](https://img.shields.io/badge/docker-multi--stage-2496ed)
 
-**Pronóstico semanal de ventas por artículo y alertas de volumen inusual para comercio electrónico.**
-Proyecto académico (TI2082 Aplicaciones de Inteligencia Artificial) con enfoque de portafolio.
+**Pronóstico semanal de ventas por producto y alertas de pedidos inusuales para comercio electrónico.**
+Una aplicación web que le dice a una persona de planificación cuánto va a vender cada artículo la semana siguiente, qué tan fiable es ese número y qué pedidos raros conviene revisar antes de confiar en él.
 
-StockIA Predict estudia cómo anticipar las unidades vendidas por artículo y semana en un comercio electrónico británico anonimizado (dataset **Online Retail II**, UCI) y propone una herramienta de apoyo a la planificación de demanda que clasifica el patrón de cada producto, pronostica con un método para demanda intermitente (TSB) y señala pedidos de volumen inusual para revisión humana.
+> **TL;DR (EN).** Weekly per-SKU sales forecasting and unusual-order alerts for e-commerce, built on a real anonymised UK retailer dataset (UCI Online Retail II, 1.07 M transactions). An intermittent-demand method (TSB) is evaluated with a leak-free rolling-origin backtest against a naive baseline and ML models. Honest outcome: a modest ≈2 % WAPE improvement over the baseline; supervised ML did not beat it. Includes a Streamlit app, SQLite history, 66 tests, a multi-stage Dockerfile and CI.
 
-> **Alcance:** ventas **observadas** por artículo y semana, Reino Unido. El dataset no incluye inventario, ventas perdidas, órdenes de compra ni plazos de proveedores; los resultados **no** demuestran reducción de quiebres de stock ni ahorro económico.
+<p align="center">
+  <img src="docs/img/03_pronosticos.png" alt="Pantalla de pronóstico por producto" width="900">
+</p>
 
-## Resultado principal
+## El problema
 
-Evaluación con **6 bloques externos de 8 semanas** (2011-01-03 a 2011-11-28), selección de método solo con las 8 semanas previas a cada bloque, 2.201 artículos.
+Planificar cuántas unidades se venderán de cada artículo es difícil cuando la demanda es irregular. Sobre los datos reales de un comercio electrónico británico (Reino Unido, 2009–2011, 104 semanas completas):
+
+| | |
+|---|---|
+| **62 %** | de las combinaciones artículo-semana no registra ninguna venta |
+| **81 %** | de las unidades pertenece a artículos de demanda irregular (*erratic* o *lumpy*) |
+| **78,65 %** | de error (WAPE) del método de referencia, un promedio móvil de 4 semanas |
+
+Además, un solo pedido enorme distorsiona un promedio simple: una factura de 12.540 unidades del artículo 84826 lleva al promedio a proponer 3.138 unidades para la semana siguiente, cuando fue un evento puntual.
+
+## La solución
+
+1. **Carga y valida** un archivo de ventas (CSV/XLSX): duplicados, cancelaciones, cantidades negativas; arma la serie semanal por artículo.
+2. **Clasifica** cada artículo según cómo vende (ADI/CV²): *smooth*, *erratic*, *intermittent* o *lumpy*.
+3. **Pronostica** la semana siguiente con **TSB** (Teunter–Syntetos–Babai), un método para demanda intermitente que estima por separado la probabilidad de venta y el tamaño de la venta, y los actualiza cada semana. Siempre muestra la referencia de 4 semanas al lado.
+4. **Indica la fiabilidad** (alta, media o baja) y recomienda revisión manual cuando el patrón es *lumpy* o hay poca historia.
+5. **Alerta** de facturas que superan 100 veces la cantidad habitual del artículo; la persona decide conservarlas o excluirlas y el pronóstico se recalcula.
+6. **Registra** cada ejecución en SQLite y, cuando llegan las ventas de la semana siguiente, compara lo pronosticado con lo real.
+7. Ofrece una **cobertura de stock informativa** (con el stock y el plazo que ingresa el usuario).
+
+<table>
+  <tr>
+    <td><img src="docs/img/04_revision.png" alt="Revisión de alertas" width="440"></td>
+    <td><img src="docs/img/05_metricas.png" alt="Métricas de éxito" width="440"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Revisión: pedido de 12.540 uds, con y sin el pico</sub></td>
+    <td align="center"><sub>Métricas: backtesting en 6 bloques de 8 semanas</sub></td>
+  </tr>
+</table>
+
+## Resultados
+
+Evaluación **fuera de muestra** con 6 bloques de 8 semanas (2011-01-03 a 2011-11-28) sobre 2.201 artículos. El método y su parámetro se eligen solo con las 8 semanas anteriores a cada bloque.
 
 | Estrategia | WAPE | Sesgo |
 |---|---:|---:|
-| Híbrido por segmentos | 75,93 % | -13,45 % |
-| **TSB (seleccionado)** | **77,00 %** | -6,13 % |
-| HGB Hurdle Poisson (ML) | 78,41 % | -1,10 % |
-| **Promedio móvil 4 semanas (baseline)** | **78,65 %** | -4,77 % |
-| LightGBM Poisson (ML) | 79,88 % | -0,25 % |
+| Híbrido por segmentos | 75,93 % | −13,45 % |
+| **TSB (solución elegida)** | **77,00 %** | −6,13 % |
+| HGB Hurdle Poisson (Machine Learning) | 78,41 % | −1,10 % |
+| **Promedio móvil 4 semanas (línea base)** | **78,65 %** | −4,77 % |
+| LightGBM Poisson (Machine Learning) | 79,88 % | −0,25 % |
 
-- TSB reduce el error ≈ **2,10 %** frente al baseline, y lo supera en 4 de 6 bloques y en el 59 % de los productos.
-- La mejora es **modesta** y el WAPE absoluto sigue alto: es una prueba de concepto, no un sistema listo para decidir compras.
-- TSB es un método **estadístico** de pronóstico para demanda intermitente, no Machine Learning supervisado; los modelos ML evaluados no lo superan claramente.
+- TSB reduce el error ≈ **2,1 %** frente a la línea base; la supera en 4 de 6 bloques y en el 59 % de los productos.
+- **La mejora es modesta** y el error absoluto sigue alto: es una prueba de concepto, no un sistema para automatizar compras.
+- TSB es un método **estadístico**, no Machine Learning supervisado; los modelos ML evaluados no lo superaron claramente.
+- **Cómo leer el WAPE:** son las unidades de error divididas por las unidades vendidas. No es el porcentaje de predicciones erradas ni una probabilidad de acierto: por producto y semana el pronóstico es aproximado, mientras que en el total acumulado el sesgo es de solo −6,13 %.
 
-Detalle, tablas por bloque, segmento y producto: [`docs/RESULTADOS.md`](docs/RESULTADOS.md).
+Tablas completas (por bloque, patrón y producto) en [`docs/RESULTADOS.md`](docs/RESULTADOS.md).
 
-## Estructura
+## Qué demuestra este proyecto
 
-```text
-├── data/processed/uk_product_week_sales.csv   # Panel semanal derivado (CC BY 4.0)
-├── docs/
-│   ├── RESULTADOS.md          # Cifras oficiales (única fuente)
-│   ├── METODOLOGIA.md         # Datos, protocolo, reproducibilidad, correcciones
-│   ├── entrega/               # Preinforme, mockups y presentación (Evaluación Sumativa 3)
-│   ├── academic/              # Documentos 01, 02, 07 y 08 vigentes
-│   ├── business/              # Modelo de negocio y propuesta de valor
-│   ├── validation/            # Protocolo de entrevistas (opcional)
-│   └── archive/               # Documentos superados (Word v1, protocolo v0.3)
-├── reports/
-│   ├── backtesting/           # Resultados oficiales
-│   ├── eda/                   # Auditoría del dataset
-│   └── archive_v0.3/          # Resultados exploratorios (no citar cifras)
-├── scripts/
-│   ├── 01_audit_dataset.py            # Auditoría y panel semanal desde el Excel
-│   ├── 05_backtesting_model_selection.py   # Backtesting y selección de modelo
-│   └── 02–04_*.py             # Diagnóstico exploratorio v0.3
-├── tests/                     # Pruebas (pytest)
-├── Dockerfile · .dockerignore # Contenedor de ejecución y de pruebas
-├── .github/workflows/ci.yml   # Integración continua
-├── DATASET_CITATION.md · CHANGELOG.md · requirements*.txt
+- **Evaluación temporal rigurosa.** Backtesting rodante con selección anidada de parámetros; hay pruebas que verifican que cambiar el «futuro» de una serie no altera los pronósticos pasados (sin fuga de información).
+- **Auditoría de datos que encontró un error propio.** Al contrastar con el Excel original se detectó que el panel derivado contaba dos veces ~163 mil unidades (las dos hojas del libro se solapan del 1 al 9 de diciembre de 2010). Se corrigió, se regeneraron los resultados y quedó una prueba de regresión. Detalle en [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md).
+- **Honestidad sobre los resultados.** Se reporta lo que no funcionó (el ML no ganó), el tamaño real de la mejora y los límites de cada afirmación.
+- **Ingeniería reproducible.** La lógica (`stockia/`) está separada de la interfaz y se prueba aparte; 66 pruebas (incluida cada pantalla con `streamlit.testing`); Dockerfile multietapa sin permisos de administrador; integración continua que ejecuta pruebas y construye las imágenes. Subir el Excel original reproduce exactamente el panel de demostración.
+
+## Arquitectura
+
+```mermaid
+flowchart LR
+  A["CSV / XLSX"] --> B["stockia.ingest<br/>validación y panel semanal"]
+  B --> C["stockia.engine<br/>segmentación ADI/CV² + TSB"]
+  B --> D["stockia.backtest<br/>6 bloques de 8 semanas"]
+  B --> E["stockia.alerts<br/>volumen inusual · cobertura"]
+  C --> F[("SQLite<br/>historial y decisiones")]
+  C --> G["Streamlit · 6 pantallas"]
+  D --> G
+  E --> G
+  F --> G
 ```
 
-## Reproducir, probar y ejecutar en contenedor
+## Cómo ejecutarlo
+
+**Con Python 3.13 (la versión con la que se probó):**
 
 ```bash
 python -m venv .venv
 .venv/Scripts/Activate.ps1          # Linux/macOS: source .venv/bin/activate
 pip install -r requirements-dev.txt
-python scripts/05_backtesting_model_selection.py      # ~1-2 min, resultados en reports/backtesting/
-python -m pytest                                      # 25 pruebas, ~10 s
+streamlit run app/streamlit_app.py  # http://localhost:8501  (botón «datos de demostración»)
+python -m pytest                    # 66 pruebas, ~20 s
+python scripts/05_backtesting_model_selection.py   # reproduce el resultado oficial (~1 min)
 ```
 
-Con Docker (no requiere instalar Python):
+**Con Docker:**
 
 ```bash
-docker build -t stockia-predict .                                  # imagen de ejecución
-docker run --rm -v "${PWD}/reports/backtesting:/app/reports/backtesting" stockia-predict
+docker build --target app -t stockia-app . && docker run --rm -p 8501:8501 -v stockia-data:/app/data/app stockia-app
 docker build --target test -t stockia-predict:test . && docker run --rm stockia-predict:test
 ```
 
-Las pruebas verifican los métodos de pronóstico (cálculo a mano de TSB, ausencia de fuga de información, segmentación), la integridad del panel (incluida la regresión del solapamiento duplicado del 1–9 dic 2010) y que el resultado oficial se reproduce (TSB 77,00 % · línea base 78,65 %). GitHub Actions ejecuta las pruebas y construye la imagen en cada *push* y *pull request* (`.github/workflows/ci.yml`).
+El Excel original de UCI no se versiona (descárguelo en `data/raw/` para regenerar el panel con `scripts/01_audit_dataset.py` o los datos de demostración con `scripts/06_build_demo_assets.py`). Las capturas de este README se generan con `scripts/07_capture_screenshots.py` (requiere `pip install playwright` y Edge o Chrome instalado).
 
-Para regenerar el panel desde los datos originales, descarga `online_retail_II.xlsx` de UCI en `data/raw/` (no se versiona) y ejecuta `scripts/01_audit_dataset.py`. Más en [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md).
+## Estructura del repositorio
 
-## Límites de interpretación
+```text
+├── stockia/            # Lógica: pronóstico, ingesta, backtest, alertas, SQLite (sin interfaz)
+├── app/                # Aplicación Streamlit (6 pantallas)
+├── tests/              # 66 pruebas (lógica, interfaz y reproducción del resultado oficial)
+├── scripts/            # 01 auditoría · 05 backtesting · 06 datos demo · 07 capturas · 02–04 etapa exploratoria
+├── data/processed/     # Panel semanal derivado (CC BY 4.0)
+├── data/demo/          # Descripciones y alertas de demostración (sin identificadores de clientes ni facturas)
+├── reports/            # backtesting/ (oficial) · eda/ (auditoría) · archive_v0.3/ (exploratorio)
+├── docs/               # RESULTADOS · METODOLOGIA · entrega/ (preinforme, mockups, presentación) · business/ · archive/
+├── Dockerfile · .github/workflows/ci.yml · requirements*.txt
+└── DATASET_CITATION.md · CHANGELOG.md
+```
 
-- Una semana sin ventas se representa con cero; no equivale a disponibilidad de inventario.
-- Ventas observadas no son demanda latente.
-- No hay etiqueta de mayorista por cliente: una factura grande no prueba que el comprador lo sea.
-- Datos históricos (2009–2011) del Reino Unido; no extrapolar sin validación con datos actuales.
+## Alcance y límites
 
-## Atribución y licencia
+- Pronostica **ventas observadas**. El dataset no incluye inventario, ventas perdidas, órdenes de compra ni plazos de proveedores, así que **no se afirma** reducción de quiebres ni ahorro económico, y no se generan órdenes de compra. La cobertura de stock es informativa y no está validada.
+- Una semana sin ventas se registra como 0; no equivale a disponibilidad de inventario.
+- No hay etiqueta de mayorista por cliente: una factura grande no prueba que el comprador lo sea. `Customer ID` no se usa en el modelo ni aparece en pantallas, exportaciones o datos de demostración.
+- Datos históricos (2009–2011) del Reino Unido; no extrapolar sin validar con datos actuales.
+- El acceso de la app es simulado (sin autenticación real).
 
-Chen, D. (2012). *Online Retail II*. UCI Machine Learning Repository. DOI [10.24432/C5CG6D](https://doi.org/10.24432/C5CG6D). Licencia del dataset y del panel derivado: CC BY 4.0 (ver [`DATASET_CITATION.md`](DATASET_CITATION.md)). El código no tiene licencia de reutilización independiente hasta que se elija una.
+## Siguientes pasos
+
+- Validar la propuesta con entrevistas a potenciales usuarios (el protocolo está en [`docs/validation/`](docs/validation/)) y la meta de mejora ≥ 5 % con datos reales de un cliente.
+- Infraestructura como código (Terraform) escrita, sin desplegar.
+- Con inventario y plazos reales: validar la reposición y medir quiebres y nivel de servicio.
+
+## Autoría, atribución y licencia
+
+Proyecto académico de la asignatura TI2082 *Aplicaciones de Inteligencia Artificial*, de **Pamela Salas** y **Pablo Jara**. Documentos de la entrega (preinforme, mockups, presentación) en [`docs/entrega/`](docs/entrega/).
+
+Datos: Chen, D. (2012). *Online Retail II*. UCI Machine Learning Repository. DOI [10.24432/C5CG6D](https://doi.org/10.24432/C5CG6D). Licencia del dataset y del panel derivado: CC BY 4.0 (ver [`DATASET_CITATION.md`](DATASET_CITATION.md)). Método: Teunter, Syntetos y Babai (2011), *European Journal of Operational Research* 214(3). El código no tiene licencia de reutilización independiente hasta que se elija una.

@@ -14,6 +14,7 @@ Archivos: `StockIA_Predict_Presentacion.pdf` (5 diapositivas) y `StockIA_Predict
 ## Preguntas probables y respuestas
 
 - **¿Por qué TSB no es Machine Learning si la asignatura es de IA?** Porque la pauta admite *Predicción* como tipo de IA. TSB es un método predictivo adaptativo; además evaluamos ML supervisado (HGB, LightGBM) y no mejoró, y preferimos no presentar como ML lo que no lo es.
+- **¿Un 77 % de error significa que falla más de lo que acierta?** No. El WAPE son las unidades de error divididas por las unidades vendidas; no es el porcentaje de predicciones erradas ni una probabilidad de acierto. Indica que, por producto y por semana, el pronóstico es aproximado porque la demanda es muy irregular (62 % de las semanas sin venta). En el total acumulado el sesgo es de solo −6,13 %. Por eso mostramos fiabilidad y referencia, y la decisión es de la persona.
 - **¿La mejora de 2,1 % es relevante?** Es modesta y lo decimos. El valor está en clasificar el patrón de cada producto, mostrar fiabilidad y detectar pedidos extraordinarios; la meta de 5 % se valida en un piloto con datos reales.
 - **¿Cuánto dinero ahorra?** No lo sabemos: el dataset no tiene stock, ventas perdidas ni costos. La evidencia de impacto es el error de pronóstico.
 - **¿Qué pasa si la IA no tiene confianza?** Se marca «Fiabilidad baja» (menos de 20 semanas de historia o patrón lumpy), se muestra la referencia junto al pronóstico y se pide revisión manual.

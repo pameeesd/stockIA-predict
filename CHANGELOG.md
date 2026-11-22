@@ -36,7 +36,7 @@
 ## v0.6 - Corrección del panel y consolidación de resultados (2026-11-22)
 
 - **Corrección:** el panel semanal contaba dos veces las ventas del 1–9 dic 2010 (solapamiento de las hojas del Excel) y guardaba códigos como `10002.0`. Se regeneró desde el Excel original con `01_audit_dataset.py`.
-- Resultado oficial actualizado: TSB 77,00 % WAPE vs 78,65 % del promedio móvil de 4 semanas (≈2,10 % relativo); TSB supera al baseline en 4 de 6 bloques.
+- Resultado oficial actualizado: TSB 77,00 % WAPE vs 78,65 % del promedio móvil de 4 semanas (≈2,1 % relativo); TSB supera al baseline en 4 de 6 bloques.
 - `reports/backtesting/` y `reports/eda/` regenerados con datos corregidos.
 - Resultados v0.3 movidos a `reports/archive_v0.3/` y documentos previos a `docs/archive/`.
 - `RESULTS_SUMMARY.md` y `BACKTESTING_RECONSTRUCTION.md` reemplazados por `docs/RESULTADOS.md` y `docs/METODOLOGIA.md`.
@@ -58,3 +58,17 @@
 
 - Panel opcional de cobertura de stock (pantalla 3 y flujo): con stock y plazo de entrega ingresados por el usuario calcula semanas de cobertura y una cantidad referencial a pedir (pronóstico × (plazo + semanas de seguridad) − stock). Es aritmética sobre el pronóstico, informativa y no validada; no hay órdenes de compra automáticas ni predicción de quiebres.
 - Preinforme, presentación, guion, requisitos, modelo de negocio y Documento 07 alineados con el nuevo alcance.
+
+## v1.0 - Aplicación web (Streamlit) y paquete `stockia` (2026-11-22)
+
+- `stockia/`: pronóstico (TSB, Croston/SBA, medias móviles, segmentación ADI/CV²), ingesta con validación de calidad, motor de la semana siguiente, backtesting rodante, alertas de volumen inusual, cobertura de stock informativa, SQLite y evaluación de pronósticos guardados contra la venta real. Los métodos se movieron de `scripts/05_backtesting_model_selection.py` al paquete.
+- `app/`: aplicación Streamlit con las 6 pantallas de los mockups. Con los datos de demostración reproduce las cifras oficiales; subir el Excel original reproduce exactamente el panel de demostración.
+- `scripts/06_build_demo_assets.py` y `data/demo/` (descripciones de productos, 496 alertas en el período, informe de calidad), sin números de factura ni identificadores de clientes.
+- 66 pruebas (lógica, interfaz con `streamlit.testing` y reproducción del resultado oficial). Etapa `app` en el Dockerfile y comprobación de salud de la imagen en CI. Corrección: la conexión SQLite se reutiliza entre los hilos de Streamlit.
+- La mejora relativa se expresa como ≈2,1 % (exacto: 2,09 %) en todos los documentos.
+
+## v1.1 - README de portafolio (2026-11-22)
+
+- README reescrito para portafolio: problema, solución, resultados con su aclaración del WAPE, qué demuestra el proyecto, arquitectura (Mermaid), cómo ejecutarlo y límites.
+- `docs/img/` con capturas de la app y `scripts/07_capture_screenshots.py` para regenerarlas (Playwright con Edge/Chrome instalado).
+- Filtros de la app con textos en español y tabla por patrón con formato numérico.

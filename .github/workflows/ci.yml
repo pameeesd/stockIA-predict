@@ -56,3 +56,14 @@ jobs:
           test -s out/model_metrics.csv
           grep -q tsb_selected out/model_metrics.csv
           echo "Resultados generados:" && ls -1 out
+
+      - name: Construir la imagen de la aplicación y comprobar su salud
+        run: |
+          docker build --target app -t stockia-app:latest .
+          docker run -d --name stockia-app -p 8501:8501 stockia-app:latest
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8501/_stcore/health; then echo " <- la app responde"; exit 0; fi
+            sleep 2
+          done
+          docker logs stockia-app
+          exit 1

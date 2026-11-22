@@ -52,7 +52,7 @@ B2B SaaS con suscripción mensual por establecimiento y tramo de SKU/volumen ana
 - Comercial: pilotos pagados y conversión a suscripción.
 - Futuro: quiebres/sobrestock solo con inventario y compras históricas.
 
-Resultado actual: TSB WAPE 77.00% frente a 78.65% del promedio móvil 4 semanas; mejora relativa aproximada 2.10%, WAPE absoluto alto y sesgo TSB -6.13% (cifras vigentes en docs/RESULTADOS.md). Es una evidencia académica limitada, no prueba de beneficio económico ni readiness de producción.
+Resultado actual: TSB WAPE 77.00% frente a 78.65% del promedio móvil 4 semanas; mejora relativa aproximada 2.1%, WAPE absoluto alto y sesgo TSB -6.13% (cifras vigentes en docs/RESULTADOS.md). Es una evidencia académica limitada, no prueba de beneficio económico ni readiness de producción.
 
 ## Validación comercial
 

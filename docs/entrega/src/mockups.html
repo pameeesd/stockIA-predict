@@ -199,7 +199,7 @@ const P4=shell(4,3,"Historial de ejecuciones","Cada análisis queda registrado c
  <div class="ia"><div class="ttl">IA · qué queda guardado</div><div class="io"><div><b>Se guarda:</b> pronóstico, baseline, segmento, fiabilidad, parámetro α, corte de datos y la decisión del usuario (aceptado / ajustado).</div><div><b>Se consulta:</b> por ejecución, producto o segmento; al cerrar cada semana se compara con la venta real para medir el error (pantalla 6).</div></div></div>`,TAG);
 
 /* ---------- Pantalla 5: Revisión y corrección ---------- */
-const alerts=[["84826","ASSTD DESIGN 3D PAPER STICKERS","25-11-2011","12.540","5","2.508×","Pendiente","b-gray",true],["16014","SMALL CHINESE STYLE SCISSOR","02-11-2011","3.000","10","300×","Pendiente","b-gray",false],["84077","WORLD WAR 2 GLIDERS ASSTD DESIGNS","27-10-2011","4.800","48","100×","Conservado","b-green",false]];
+const alerts=[["84826","ASSTD DESIGN 3D PAPER STICKERS","25-11-2011","12.540","12","1.045×","Pendiente","b-gray",true],["16014","SMALL CHINESE STYLE SCISSOR","02-11-2011","3.000","10","300×","Pendiente","b-gray",false],["84077","WORLD WAR 2 GLIDERS ASSTD DESIGNS","27-10-2011","4.800","48","100×","Conservado","b-green",false]];
 const P5=shell(5,4,"Revisión y corrección","Pedidos de volumen inusual detectados para que el usuario decida cómo tratarlos y corrija el pronóstico si corresponde.",`
  <div class="grid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);flex:1;min-height:0">
   <div class="grid" style="grid-template-rows:auto 1fr;gap:14px;min-height:0">
@@ -235,7 +235,7 @@ function barChart(){const w=660,h=320,L=40,T=14,B=34;const mx=100;const gw=(w-L-
   return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${s}</svg>`}
 const P6=shell(6,5,"Métricas de éxito","Compara el error del pronóstico de StockIA con el método de referencia en bloques de evaluación sucesivos.",`
  <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:14px">
-  <div class="card kpi"><small>WAPE · TSB</small><b class="t-teal">77,00 %</b><em class="t-green">▼ 2,10 % vs referencia</em></div>
+  <div class="card kpi"><small>WAPE · TSB</small><b class="t-teal">77,00 %</b><em class="t-green">▼ 2,1 % vs referencia</em></div>
   <div class="card kpi"><small>WAPE · media 4 sem. (línea base)</small><b class="t-blue">78,65 %</b><em class="t-mut">Método actual sin IA</em></div>
   <div class="card kpi"><small>Sesgo agregado</small><b>−6,13 %</b><em class="t-green">Dentro de ±10 %</em></div>
   <div class="card kpi"><small>Productos mejores que la referencia</small><b>59,2 %</b><em class="t-green">Meta ≥ 55 %</em></div>

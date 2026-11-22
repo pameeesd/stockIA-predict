@@ -30,7 +30,7 @@ El panel actual se regeneró con `01_audit_dataset.py` desde el Excel original (
 |---|---:|---:|
 | TSB, WAPE / sesgo | 77,21 % / -5,57 % | **77,00 % / -6,13 %** |
 | Promedio móvil 4 sem., WAPE | 78,94 % | **78,65 %** |
-| Mejora relativa | 2,19 % | **2,10 %** |
+| Mejora relativa | 2,19 % | **≈2,1 %** |
 | Bloques donde TSB supera al baseline | 5 de 6 | **4 de 6** |
 
 La conclusión cualitativa no cambia. Los Documentos Word 03–06 y los resultados de `reports/archive_v0.3/` se calcularon con el panel anterior y quedaron archivados (`docs/archive/`); en los Documentos 07 y 08 se actualizaron las cifras. Las cifras vigentes son las de `docs/RESULTADOS.md`.

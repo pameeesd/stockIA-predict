@@ -53,7 +53,7 @@ tr:nth-child(even) td{background:#f7f9fd}
   <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:18px">
     <div class="card"><div class="big t">62 %</div><div class="lab">de las combinaciones artículo-semana <b>no registra ninguna venta</b> (4.775 artículos × 104 semanas)</div></div>
     <div class="card"><div class="big b">81 %</div><div class="lab">de las unidades evaluadas son de artículos de <b>demanda irregular</b> (erratic + lumpy)</div></div>
-    <div class="card"><div class="big r">78,65 %</div><div class="lab">de error del método actual (promedio móvil 4 semanas): ~79 unidades de error por cada 100 vendidas</div></div>
+    <div class="card"><div class="big r">78,65 %</div><div class="lab">de error (WAPE) del método actual, promedio móvil 4 semanas: ~79 unidades de error por cada 100 vendidas</div></div>
   </div>
   <div class="grid" style="grid-template-columns:1.1fr 1fr;margin-top:18px">
     <div class="card" style="border-left:6px solid var(--amber)">
@@ -85,7 +85,8 @@ tr:nth-child(even) td{background:#f7f9fd}
       <div class="bar"><div class="n"><b>Media móvil 4 sem. (línea base)</b></div><div class="tr"><div class="f" style="width:78.7%;background:var(--blue)">78,65 %</div></div></div>
       <div class="bar"><div class="n">HGB Hurdle (Machine Learning)</div><div class="tr"><div class="f" style="width:78.4%;background:#9aa8c0">78,41 %</div></div></div>
       <div class="bar"><div class="n"><b>TSB (solución)</b></div><div class="tr"><div class="f" style="width:77%;background:var(--teal)">77,00 %</div></div></div>
-      <div style="font-size:14px;color:var(--mut);margin-top:14px">Menor es mejor. TSB reduce el error ≈2,10 % y supera la línea base en 4 de 6 bloques y en el 59 % de los productos.</div>
+      <div style="font-size:14px;color:var(--mut);margin-top:14px">Menor es mejor. TSB reduce el error ≈2,1 % y supera la línea base en 4 de 6 bloques y en el 59 % de los productos.</div>
+      <div style="margin-top:14px;padding:12px 14px;background:#fff3dc;border-radius:10px;font-size:14.5px;line-height:1.45;color:#7a5200"><b>Cómo leer el WAPE:</b> son las unidades de error divididas por las unidades vendidas, <b>no el % de predicciones erradas</b>. A nivel de producto y semana el pronóstico es aproximado (demanda irregular); en el total, el sesgo es de solo −6,13 %.</div>
     </div>
     <div class="grid" style="grid-template-rows:auto auto;gap:14px;align-content:start">
       <div class="card"><div style="font-weight:800;font-size:18px;margin-bottom:6px">¿Por qué no <i>if/else</i> o SQL?</div><div style="font-size:16.5px;line-height:1.45">Un promedio fijo mezcla ceros y picos y trata igual a todos los productos. TSB estima la <b>probabilidad de venta</b> y el <b>tamaño</b> por separado y se actualiza cada semana.</div></div>
