@@ -1,0 +1,91 @@
+{
+  "aggregated_rows_before_panel": 188323,
+  "raw_case_sensitive_codes": 4943,
+  "case_normalized_codes": 4775,
+  "case_variants_merged": 168,
+  "calendar_weeks": 104,
+  "weeks_with_no_recorded_UK_sales": [
+    "2009-12-28",
+    "2010-12-27"
+  ],
+  "codes_with_minimum_activity": 2569,
+  "known_non_merchandise_codes_excluded": [
+    "BANK CHARGES",
+    "C2",
+    "DOT",
+    "GIFT_0001_30",
+    "M",
+    "POST"
+  ],
+  "selected_item_codes": 2563,
+  "selection_rule": ">=20 nonzero weeks within first 72 training weeks",
+  "first_week": "2009-12-07",
+  "last_week": "2011-11-28",
+  "split": {
+    "train_target_weeks": [
+      "2010-03-08",
+      "2011-04-18"
+    ],
+    "validation_target_weeks": [
+      "2011-04-25",
+      "2011-08-08"
+    ],
+    "test_target_weeks": [
+      "2011-08-15",
+      "2011-11-28"
+    ]
+  },
+  "train_examples": 151217,
+  "validation_examples": 41008,
+  "test_examples": 41008,
+  "features": [
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "lag_4",
+    "lag_8",
+    "lag_13",
+    "mean_4",
+    "mean_8",
+    "mean_13",
+    "std_4",
+    "nonzero_13",
+    "max_13",
+    "mean4_minus_mean13",
+    "mean_26",
+    "mean_52",
+    "lag_52",
+    "has_lag_52",
+    "mean_history",
+    "active_rate_history",
+    "mean_positive_history",
+    "cv_history",
+    "week_sin",
+    "week_cos"
+  ],
+  "target": "weekly positive recorded sales quantity, UK, by item code",
+  "target_transform": "log1p for machine-learning regressors",
+  "hist_gradient_boosting_train_seconds": 1.24,
+  "hist_gradient_boosting_poisson_train_seconds": 1.59,
+  "hist_gradient_boosting_hurdle_train_seconds": 2.14,
+  "positive_week_share": {
+    "train": 0.6285272158553602,
+    "validation": 0.5416260241904018,
+    "test": 0.5665967616074912
+  },
+  "xgboost_best_trees": 149,
+  "xgboost_train_seconds": 0.79,
+  "elapsed_seconds": 13.82,
+  "methodological_notes": [
+    "The source workbook is not included in this project output; results are derived from its UK weekly aggregate.",
+    "Two complete calendar weeks with no UK transaction records are represented as zero weeks: 2009-12-28 and 2010-12-27.",
+    "StockCode is uppercased before re-aggregation; case-only variants are merged.",
+    "SKU eligibility uses only training-window activity, so future validation/test data do not affect selection.",
+    "Known non-merchandise codes are excluded; catalogue review remains necessary for final release.",
+    "All ML features are calculated using weeks strictly before the forecast target week.",
+    "Evaluation is rolling one-step-ahead: actual previous weeks are assumed available before each next-week forecast.",
+    "Zeros mean no recorded positive sales, not confirmed stock availability.",
+    "Target is recorded sales quantity. The source does not include inventory on hand, stockouts, lost sales, procurement costs or supplier lead times.",
+    "The final 16 weeks are not used to fit model parameters; this exploratory benchmark compares several pre-specified candidates on that period, so later model selection must use rolling-origin backtesting rather than repeatedly optimizing against this same holdout."
+  ]
+}

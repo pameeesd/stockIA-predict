@@ -1,0 +1,37 @@
+{
+  "selected_products": 2563,
+  "segment_thresholds": {
+    "ADI": 1.32,
+    "CV2": 0.49
+  },
+  "episodic_concentration_threshold_max_week_share_q90": 0.3730018088726738,
+  "selection_rule": ">=20 positive weeks in first 72 calendar weeks; normalized StockCode; excluded known service/fee/adjustment codes",
+  "split": {
+    "training_targets": 59,
+    "validation_targets": 16,
+    "test_targets": 16
+  },
+  "best_global_model_selected_on_validation_WAPE": "xgboost_log1p",
+  "validation_overall_metrics": {
+    "model": "xgboost_log1p",
+    "split": "validation",
+    "segment": "ALL",
+    "n_sku_week": 41008,
+    "actual_units": 914191.0,
+    "predicted_units": 513712.3709008562,
+    "bias_units": -400478.6290991438,
+    "bias_pct": -43.80688817754099,
+    "MAE": 15.281320810773114,
+    "RMSE": 70.46940763387308,
+    "WAPE_pct": 68.54764527414773,
+    "n_products": NaN,
+    "share_actual_units_pct": NaN
+  },
+  "notes": [
+    "All product segments use first 72 calendar weeks only.",
+    "ADI/CV2 uses the standard four-pattern demand classification; threshold ADI=1.32, CV2=0.49.",
+    "High concentration is a descriptive top-decile flag on maximum weekly share, not proof of wholesale orders.",
+    "Sales target is recorded positive units, not latent demand or lost sales.",
+    "Test-set segment metrics are diagnostic only; use validation or future rolling-origin backtests for model selection."
+  ]
+}

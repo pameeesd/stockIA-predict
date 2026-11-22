@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+
+# Secrets and cloud credentials
+*.pem
+*.key
+.aws/
+
+# Raw and intermediate data (download locally; do not commit source workbook)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+reports/generated/
+reports/ml_experiment/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large/local experiment outputs
+reports/segment_diagnostics/predictions_by_sku_week.csv
+reports/segment_diagnostics/*.parquet
+
+# Keep curated CC BY 4.0 weekly panel
+!data/processed/uk_product_week_sales.csv
+
+# Local source bundles (original zips/docx/xlsx kept outside version control)
+_fuentes/
+*.xlsx
+*.xls
+~$*

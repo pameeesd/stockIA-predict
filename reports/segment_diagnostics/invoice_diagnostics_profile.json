@@ -1,0 +1,10 @@
+{
+  "sheet_rows_parsed": 541910,
+  "exact_duplicate_rows_skipped": 5268,
+  "retained_target_transaction_lines": 7518,
+  "target_skus": 25,
+  "invoices_with_target_skus": 7363,
+  "test_window_start_inclusive": "2011-08-15",
+  "test_window_end_exclusive": "2011-12-05",
+  "privacy": "InvoiceNo and CustomerID are not exported."
+}
