@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>StockIA Predict — Mockups</title>
+<style>
+@page { size: 1440px 900px; margin: 0; }
+:root{--navy:#14284b;--navy2:#1d3a66;--teal:#0e9f8e;--tealbg:#e6f6f3;--blue:#3b6fd4;--amber:#d98a0b;--amberbg:#fff3dc;--red:#c8453b;--redbg:#fde9e7;--green:#2f8f5b;--greenbg:#e5f4ec;--ink:#14284b;--mut:#66748b;--line:#e1e7f0;--bg:#f3f6fb;}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;font-family:"Segoe UI",system-ui,Arial,sans-serif;color:var(--ink)}
+.page{width:1440px;height:900px;position:relative;overflow:hidden;background:var(--bg);page-break-after:always;break-after:page;display:flex}
+.page:last-child{page-break-after:auto;break-after:auto}
+.side{width:236px;background:var(--navy);color:#cfd9ea;padding:22px 16px;display:flex;flex-direction:column;flex:none}
+.brand{display:flex;gap:12px;align-items:center;margin-bottom:26px}
+.logo{width:44px;height:44px;border-radius:12px;background:var(--teal);color:#fff;font-weight:800;font-size:24px;display:grid;place-items:center}
+.brand b{color:#fff;font-size:21px;display:block;line-height:1}
+.brand span{font-size:10px;letter-spacing:.14em;color:#8fa3c4}
+.nav a{display:flex;gap:10px;align-items:center;padding:11px 12px;border-radius:10px;margin-bottom:4px;font-size:15px;color:#b9c7de}
+.nav a.on{background:var(--navy2);color:#fff;font-weight:700}
+.nav i{font-style:normal;width:18px;text-align:center;opacity:.8}
+.ws{margin-top:auto;border-top:1px solid #2c4470;padding-top:14px;font-size:12px;color:#8fa3c4}
+.ws b{display:block;color:#fff;font-size:14px;margin-top:4px}
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.top{height:62px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:13px;color:var(--mut);flex:none}
+.user{display:flex;align-items:center;gap:10px}
+.avatar{width:36px;height:36px;border-radius:50%;background:#e9eef7;color:var(--navy);font-weight:700;display:grid;place-items:center;font-size:13px}
+.content{flex:1;padding:22px 30px 18px;display:flex;flex-direction:column;gap:14px;min-height:0}
+h1{margin:0;font-size:27px;letter-spacing:-.01em}
+.sub{color:var(--mut);font-size:14px;margin-top:4px}
+.head{display:flex;justify-content:space-between;align-items:flex-start}
+.tag{font-size:10.5px;font-weight:700;letter-spacing:.06em;background:var(--amberbg);color:var(--amber);padding:6px 10px;border-radius:7px;white-space:nowrap}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card h3{margin:0 0 10px;font-size:15px}
+.grid{display:grid;gap:14px}
+.kpi small{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--mut);text-transform:uppercase}
+.kpi b{display:block;font-size:30px;margin:6px 0 2px}
+.kpi em{font-style:normal;font-size:12.5px;font-weight:600}
+.t-teal{color:var(--teal)}.t-blue{color:var(--blue)}.t-amber{color:var(--amber)}.t-red{color:var(--red)}.t-green{color:var(--green)}.t-mut{color:var(--mut)}
+.badge{white-space:nowrap;display:inline-block;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:20px}
+.b-teal{background:var(--tealbg);color:var(--teal)}.b-amber{background:var(--amberbg);color:var(--amber)}.b-red{background:var(--redbg);color:var(--red)}.b-green{background:var(--greenbg);color:var(--green)}.b-gray{background:#edf0f5;color:var(--mut)}.b-blue{background:#e5edfb;color:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:10px;border-bottom:1px solid #eef2f8}
+tr.sel td{background:#f2f8fe}
+.btn{display:inline-block;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13.5px;border:1px solid var(--line);background:#fff;color:var(--navy)}
+.btn.p{background:var(--teal);border-color:var(--teal);color:#fff}
+.btn.d{background:var(--navy);border-color:var(--navy);color:#fff}
+.ia{align-self:start;border:2px dashed var(--teal);background:#f3fbf9;border-radius:12px;padding:12px 16px;font-size:12.5px;line-height:1.5}
+.ia .ttl{font-weight:800;color:var(--teal);letter-spacing:.06em;font-size:11px;margin-bottom:4px;text-transform:uppercase}
+.ia .io{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ia b{color:var(--navy)}
+.note{align-self:start;background:var(--amberbg);border-radius:10px;padding:10px 14px;font-size:12.5px;color:#7a5200;line-height:1.45}
+.warn{align-self:start;background:var(--redbg);border-radius:10px;padding:10px 14px;font-size:12.5px;color:#8a2f28;line-height:1.45}
+.input{border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--mut);background:#fff;margin-bottom:12px}
+.step{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:700;margin-right:8px}
+svg text{font-family:"Segoe UI",system-ui,Arial,sans-serif}
+.nw{white-space:nowrap}.pno{position:absolute;right:16px;bottom:8px;font-size:11px;color:#98a4b8}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const NAV=[["◈","Inicio"],["▣","Datos"],["⌁","Pronósticos"],["▤","Historial"],["⚑","Revisión"],["◔","Métricas"]];
+function shell(n,activeIdx,title,sub,body,tag){
+  const nav=NAV.map((x,i)=>`<a class="${i===activeIdx?'on':''}"><i>${x[0]}</i>${x[1]}</a>`).join("");
+  return `<section class="page" id="p${n}">
+  <aside class="side"><div class="brand"><div class="logo">S</div><div><b>StockIA</b><span>PREDICT</span></div></div>
+  <nav class="nav">${nav}</nav>
+  <div class="ws">ESPACIO DE TRABAJO<b>Retail UK · Demo UCI</b></div></aside>
+  <div class="main"><div class="top"><span>StockIA Predict · ${title}</span><div class="user"><span>Pamela Salas · Analista de planificación</span><div class="avatar">PS</div></div></div>
+  <div class="content"><div class="head"><div><h1>${title}</h1><div class="sub">${sub}</div></div>${tag?`<span class="tag">${tag}</span>`:""}</div>${body}</div></div>
+  <div class="pno">Pantalla ${n} de 6</div></section>`;
+}
+const TAG="DATOS DE EJEMPLO · UCI ONLINE RETAIL II";
+
+/* ---------- Gráfico de línea ---------- */
+function lineChart(hist,fc,base,w,h,lastLabel){
+  const all=hist.concat([fc,base]);const mx=Math.max(...all)*1.12;const L=40,R=96,T=14,B=30;
+  const n=hist.length+1;const X=i=>L+i*(w-L-R)/(n-1);const Y=v=>T+(h-T-B)*(1-v/mx);
+  let g="";for(let k=0;k<=4;k++){const v=mx*k/4;g+=`<line x1="${L}" x2="${w-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="#e8edf5"/><text x="${L-6}" y="${Y(v)+4}" font-size="10" fill="#8a97ac" text-anchor="end">${Math.round(v)}</text>`;}
+  const pts=hist.map((v,i)=>`${X(i)},${Y(v)}`).join(" ");
+  let dots=hist.map((v,i)=>`<circle cx="${X(i)}" cy="${Y(v)}" r="3.5" fill="#fff" stroke="#0e9f8e" stroke-width="2"/>`).join("");
+  let lab="";for(let i=0;i<n;i++){lab+=`<text x="${X(i)}" y="${h-10}" font-size="10" fill="#8a97ac" text-anchor="middle">${i<n-1?'S-'+String(hist.length-i).padStart(2,'0'):'Próx.'}</text>`}
+  const xl=X(n-1);
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${g}
+  <polyline points="${pts}" fill="none" stroke="#0e9f8e" stroke-width="2.5"/>
+  <line x1="${X(hist.length-1)}" y1="${Y(hist[hist.length-1])}" x2="${xl}" y2="${Y(fc)}" stroke="#3b6fd4" stroke-width="2.5" stroke-dasharray="6 4"/>${dots}
+  <circle cx="${xl}" cy="${Y(fc)}" r="6" fill="#3b6fd4"/><circle cx="${xl}" cy="${Y(base)}" r="5" fill="#fff" stroke="#8a97ac" stroke-width="2"/>
+  <text x="${xl+12}" y="${Y(fc)-2}" font-size="11.5" font-weight="700" fill="#3b6fd4">TSB ${Math.round(fc)}</text>
+  <text x="${xl+12}" y="${Y(base)+15}" font-size="10.5" fill="#66748b">Media 4 sem. ${Math.round(base)}</text>${lab}</svg>`;
+}
+
+/* ---------- Pantalla 1: Inicio / acceso ---------- */
+const P1=`<section class="page" id="p1" style="background:linear-gradient(135deg,#14284b 0%,#1d3a66 55%,#0e7f74 100%);align-items:center;justify-content:center">
+  <div style="display:flex;gap:46px;align-items:stretch">
+   <div style="width:520px;color:#fff;padding-top:30px">
+     <div class="brand"><div class="logo" style="width:56px;height:56px;font-size:30px">S</div><div><b style="font-size:30px">StockIA</b><span style="font-size:12px">PREDICT</span></div></div>
+     <h2 style="font-size:34px;line-height:1.2;margin:10px 0 14px">Pronóstico semanal de ventas por producto y alertas de volumen inusual</h2>
+     <p style="color:#c9d7ee;font-size:16px;line-height:1.55;margin:0 0 22px">Sube tu historial de ventas y obtén, para cada artículo, su patrón de demanda, un pronóstico para la semana siguiente y los pedidos que se salen de lo normal.</p>
+     <div style="background:rgba(255,255,255,.1);border-radius:14px;padding:16px 18px;font-size:14px;line-height:1.6">
+       <b>Qué hace</b> · Pronostica ventas observadas, clasifica la demanda, señala pedidos extraordinarios.<br>
+       <b>Qué no hace</b> · No calcula stock ni genera órdenes de compra; la decisión es tuya.
+     </div>
+   </div>
+   <div style="width:430px;background:#fff;border-radius:18px;padding:34px 34px 28px;color:var(--ink);box-shadow:0 20px 50px rgba(0,0,0,.25)">
+     <h3 style="margin:0 0 4px;font-size:22px">Ingresar</h3><div class="sub" style="margin-bottom:20px">Accede con tu cuenta de equipo</div>
+     <div class="input">pamela.salas@ejemplo.cl</div><div class="input">••••••••••</div>
+     <div class="btn p" style="display:block;text-align:center;margin:6px 0 14px">Entrar</div>
+     <div style="text-align:center;color:var(--mut);font-size:12px;margin:10px 0">— o —</div>
+     <div class="btn" style="display:block;text-align:center">Probar con datos de demostración (UCI Online Retail II)</div>
+     <div style="margin-top:18px;font-size:11.5px;color:var(--mut);line-height:1.5">Dataset público de Chen, D. (2012), UCI Machine Learning Repository · CC BY 4.0. No se muestran identificadores de clientes.</div>
+   </div>
+  </div>
+  <div class="ia" style="position:absolute;left:40px;bottom:26px;width:520px;background:rgba(255,255,255,.95)"><div class="ttl">IA en esta pantalla</div>La IA no interviene: solo identifica al usuario y el espacio de trabajo (entorno de demostración o datos propios).</div>
+  <div class="pno" style="color:#9fb4d6">Pantalla 1 de 6</div></section>`;
+
+/* ---------- Pantalla 2: Ingreso de datos ---------- */
+const mapRows=[["Invoice","InvoiceNo","Agrupa líneas de factura"],["StockCode","StockCode","Identifica el producto"],["Description","Description","Nombre legible"],["Quantity","Quantity","Unidades vendidas"],["InvoiceDate","InvoiceDate","Construye la semana"],["Price","UnitPrice","Contexto"],["Customer ID","— (excluido)","No entra al modelo ni se muestra"],["Country","Country","Filtro: United Kingdom"]];
+const P2=shell(2,1,"Ingreso de datos","Carga un archivo de ventas, asocia sus columnas y revisa su calidad antes de pronosticar.",`
+ <div class="grid" style="grid-template-columns:1.1fr 1fr;flex:1;min-height:0">
+  <div class="grid" style="grid-template-rows:auto 1fr;gap:14px;min-height:0">
+   <div class="card" style="border:2px dashed #b9c7de;display:flex;align-items:center;gap:18px">
+     <div style="font-size:34px">⬆</div><div style="flex:1"><b style="font-size:16px">online_retail_II.xlsx</b><div class="sub">45,6 MB · 2 hojas · cargado desde tu equipo</div></div><span class="badge b-green">Archivo leído</span>
+   </div>
+   <div class="card" style="min-height:0"><h3>Mapeo de columnas</h3>
+    <table><tr><th>Columna del archivo</th><th>Campo de StockIA</th><th>Uso</th></tr>
+    ${mapRows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="t-mut">${r[2]}</td></tr>`).join("")}</table></div>
+  </div>
+  <div class="grid" style="grid-template-rows:auto auto 1fr auto;gap:14px;min-height:0">
+   <div class="card"><h3>Validación de calidad</h3>
+    <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:10px">
+     <div class="kpi"><small>Filas leídas</small><b style="font-size:22px">1.067.371</b></div>
+     <div class="kpi"><small>Duplicados exactos</small><b style="font-size:22px" class="t-amber">34.335</b><em class="t-mut">3,22 % · se eliminan</em></div>
+     <div class="kpi"><small>Cancelaciones (C)</small><b style="font-size:22px" class="t-amber">19.104</b><em class="t-mut">no cuentan como venta</em></div>
+     <div class="kpi"><small>Cantidades negativas</small><b style="font-size:22px" class="t-amber">22.496</b><em class="t-mut">devoluciones / ajustes</em></div>
+     <div class="kpi"><small>Sin Customer ID</small><b style="font-size:22px">22,76 %</b><em class="t-mut">no se usa</em></div>
+     <div class="kpi"><small>Semanas completas</small><b style="font-size:22px" class="t-green">104</b><em class="t-mut">2 sin ventas (= 0)</em></div>
+    </div></div>
+   <div class="note"><b>Antes de continuar:</b> el archivo no contiene stock, ventas perdidas ni órdenes de compra. StockIA pronosticará <b>ventas observadas</b>.</div>
+   <div class="ia"><div class="ttl">IA · datos de entrada y salida</div><div class="io">
+     <div><b>Entra:</b> ventas positivas del Reino Unido (línea de factura: producto, cantidad, fecha). Customer ID se excluye.</div>
+     <div><b>Sale:</b> serie semanal de unidades por artículo (4.775 artículos activos × 104 semanas) lista para segmentar y pronosticar.</div></div></div>
+   <div style="display:flex;gap:10px;justify-content:flex-end"><span class="btn">Cancelar</span><span class="btn p">Ejecutar análisis →</span></div>
+  </div>
+ </div>`,TAG);
+
+/* ---------- Pantalla 3: Resultado de la IA ---------- */
+const prods=[["85123A","WHITE HANGING HEART T-LIGHT HOLDER","Erratic","Media","b-amber",true],["84077","WORLD WAR 2 GLIDERS ASSTD DESIGNS","Erratic","Media","b-amber",false],["16014","SMALL CHINESE STYLE SCISSOR","Lumpy","Baja","b-red",false],["22197","POPCORN HOLDER","Erratic","Media","b-amber",false]];
+const P3=shell(3,2,"Resultado de la IA · Pronóstico por producto","Estimación de unidades vendidas para la semana siguiente, con su explicación y su fiabilidad histórica.",`
+ <div class="grid" style="grid-template-columns:330px 1fr;flex:1;min-height:0">
+  <div class="card" style="padding:14px"><h3>Productos</h3>
+   ${prods.map(p=>`<div style="padding:11px 10px;border-radius:10px;margin-bottom:6px;${p[5]?'background:#eef7f5;border:1px solid #bfe6df':'border:1px solid #edf1f7'}"><div style="font-size:12.5px;font-weight:700">${p[1]}</div><div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11.5px"><span class="t-mut">${p[0]} · ${p[2]}</span><span class="badge ${p[4]}">Fiabilidad ${p[3]}</span></div></div>`).join("")}
+   <div class="sub" style="font-size:11.5px;margin-top:8px">Fiabilidad = error histórico del método en el segmento del producto (backtesting).</div>
+  </div>
+  <div class="grid" style="grid-template-rows:auto 1fr auto;gap:14px;min-height:0">
+   <div class="grid" style="grid-template-columns:1.4fr 1fr 1fr 1fr;gap:14px">
+    <div class="card"><small style="font-size:11px;color:var(--mut);font-weight:700">PRODUCTO SELECCIONADO</small><div style="font-size:17px;font-weight:800;margin-top:8px;line-height:1.25">WHITE HANGING HEART T-LIGHT HOLDER</div><div class="sub">Código 85123A · semana del 05-12-2011</div></div>
+    <div class="card kpi"><small>Pronóstico TSB</small><b class="t-teal">724 uds</b><em class="t-teal">Método seleccionado (α = 0,30)</em></div>
+    <div class="card kpi"><small>Referencia · media 4 sem.</small><b class="t-blue">727 uds</b><em class="t-blue">Baseline sin IA</em></div>
+    <div class="card kpi"><small>Patrón de demanda</small><b style="font-size:24px">Erratic</b><em class="t-mut">ADI 1,02 · ventas casi todas las semanas, cantidades muy variables</em></div>
+   </div>
+   <div class="grid" style="grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;min-height:0">
+    <div class="card"><h3>Unidades vendidas por semana (últimas 12) y pronóstico</h3><div id="chart3"></div></div>
+    <div class="grid" style="grid-template-rows:auto 1fr;gap:14px">
+     <div class="card"><h3>Cómo se calculó</h3><div style="font-size:12.5px;line-height:1.55">TSB combina la <b>probabilidad</b> de que haya venta esa semana con el <b>tamaño esperado</b> de una venta, y se actualiza cada semana con el historial. El parámetro α se eligió con las 8 semanas más recientes.</div></div>
+     <div class="warn"><b>Fiabilidad media.</b> En el backtesting, el error de TSB en productos erratic fue 76,0 % (WAPE). Úsalo como referencia, no como certeza.<br><b>Si fuera baja</b> (producto lumpy como 16014, WAPE 95,5 %, o con menos de 20 semanas de historia) se muestra el aviso <i>«Revisión manual recomendada»</i> y el baseline junto al pronóstico.</div>
+    </div>
+   </div>
+   <div class="ia"><div class="ttl">IA · datos de entrada y salida</div><div class="io">
+     <div><b>Entra:</b> historial semanal del producto (104 semanas), segmento ADI/CV² y α elegido en validación interna.</div>
+     <div><b>Sale:</b> pronóstico puntual para 1 semana, baseline de comparación, segmento y fiabilidad histórica. No calcula un intervalo de confianza.</div></div></div>
+  </div>
+ </div>`,TAG);
+
+/* ---------- Pantalla 4: Historial ---------- */
+const runs=[[3,"22-11-2026 17:10","online_retail_II.xlsx","28-11-2011","2.201","TSB · α 0,30","Completada","b-green"],[2,"20-11-2026 11:42","online_retail_II.xlsx","31-10-2011","2.201","TSB · α 0,20","Completada","b-green"],[1,"18-11-2026 09:05","online_retail_II.xlsx","26-09-2011","2.201","TSB · α 0,30","Completada","b-green"]];
+const saved=[["85123A","WHITE HANGING HEART T-LIGHT HOLDER","Erratic","724","727","Media","Aceptado","b-green"],["84077","WORLD WAR 2 GLIDERS ASSTD DESIGNS","Erratic","1.057","877","Media","Pendiente","b-gray"],["16014","SMALL CHINESE STYLE SCISSOR","Lumpy","376","134","Baja","Ajustado","b-blue"],["84826","ASSTD DESIGN 3D PAPER STICKERS","Lumpy","1.506","3.138","Baja","Pendiente","b-gray"]];
+const P4=shell(4,3,"Historial de ejecuciones","Cada análisis queda registrado con su archivo, corte temporal, método y parámetros para poder reproducirlo.",`
+ <div class="card"><h3>Ejecuciones guardadas</h3>
+  <table><tr><th>N.º</th><th>Fecha de ejecución</th><th>Archivo</th><th>Corte de datos</th><th>Artículos</th><th>Método y parámetro</th><th>Estado</th></tr>
+  ${runs.map((r,i)=>`<tr class="${i===0?'sel':''}"><td>#${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td><span class="badge ${r[7]}">${r[6]}</span></td></tr>`).join("")}</table></div>
+ <div class="card" style="flex:1;min-height:0"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0">Pronósticos de la ejecución #3 · semana del 05-12-2011</h3><div style="display:flex;gap:8px"><span class="btn" style="padding:7px 14px">Filtrar por segmento ▾</span><span class="btn d" style="padding:7px 14px">Exportar CSV</span></div></div>
+  <table><tr><th>Código</th><th>Producto</th><th>Segmento</th><th>Pronóstico TSB</th><th>Media 4 sem.</th><th>Fiabilidad</th><th>Revisión</th></tr>
+  ${saved.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><b>${r[3]}</b></td><td>${r[4]}</td><td><span class="badge ${r[5]==='Baja'?'b-red':'b-amber'}">${r[5]}</span></td><td><span class="badge ${r[7]}">${r[6]}</span></td></tr>`).join("")}</table>
+  <div class="sub" style="margin-top:12px;font-size:12px">Se guardan fecha de carga, versión de los datos, corte temporal, método y parámetros (trazabilidad). La exportación no incluye identificadores de clientes.</div></div>
+ <div class="ia"><div class="ttl">IA · qué queda guardado</div><div class="io"><div><b>Se guarda:</b> pronóstico, baseline, segmento, fiabilidad, parámetro α, corte de datos y la decisión del usuario (aceptado / ajustado).</div><div><b>Se consulta:</b> por ejecución, producto o segmento; al cerrar cada semana se compara con la venta real para medir el error (pantalla 6).</div></div></div>`,TAG);
+
+/* ---------- Pantalla 5: Revisión y corrección ---------- */
+const alerts=[["84826","ASSTD DESIGN 3D PAPER STICKERS","25-11-2011","12.540","5","2.508×","Pendiente","b-gray",true],["16014","SMALL CHINESE STYLE SCISSOR","02-11-2011","3.000","10","300×","Pendiente","b-gray",false],["84077","WORLD WAR 2 GLIDERS ASSTD DESIGNS","27-10-2011","4.800","48","100×","Conservado","b-green",false]];
+const P5=shell(5,4,"Revisión y corrección","Pedidos de volumen inusual detectados para que el usuario decida cómo tratarlos y corrija el pronóstico si corresponde.",`
+ <div class="grid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);flex:1;min-height:0">
+  <div class="grid" style="grid-template-rows:auto 1fr;gap:14px;min-height:0">
+   <div class="card"><h3>Alertas de volumen inusual</h3>
+    <table><tr><th>Código</th><th>Producto</th><th>Fecha</th><th>Cantidad</th><th>Mediana</th><th>Veces</th><th>Estado</th></tr>
+    ${alerts.map(r=>`<tr class="${r[8]?'sel':''}"><td>${r[0]}</td><td>${r[1]}</td><td class="nw">${r[2]}</td><td><b>${r[3]}</b></td><td>${r[4]}</td><td class="t-red"><b>${r[5]}</b></td><td><span class="badge ${r[7]}">${r[6]}</span></td></tr>`).join("")}</table>
+    <div class="sub" style="font-size:12px;margin-top:10px">«Mediana» = unidades por factura habituales del artículo; «Veces» = cantidad de la línea ÷ mediana. No se muestran identificadores de clientes.</div></div>
+   <div class="ia"><div class="ttl">IA · datos de entrada y salida</div><div class="io">
+     <div><b>Entra:</b> líneas de factura por artículo y su distribución histórica de unidades por factura.</div>
+     <div><b>Sale:</b> alerta con su motivo (cantidad muy superior a la habitual). No predice ventas futuras ni identifica si el comprador es mayorista.</div></div></div>
+  </div>
+  <div class="card" style="display:flex;flex-direction:column;gap:12px;min-height:0">
+   <h3 style="margin:0">Detalle · ASSTD DESIGN 3D PAPER STICKERS (84826)</h3>
+   <div style="font-size:13px;line-height:1.55">Una sola factura del <b>25-11-2011</b> registra <b>12.540 uds</b>, el 99,8 % de lo vendido por el artículo en el período evaluado (6 facturas en total).</div>
+   <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+    <div class="card kpi" style="padding:12px"><small>Media 4 sem. (con el pico)</small><b style="font-size:24px" class="t-blue">3.138</b></div>
+    <div class="card kpi" style="padding:12px"><small>Pronóstico TSB</small><b style="font-size:24px" class="t-teal">1.506</b></div></div>
+   <div class="note">El pedido extraordinario eleva el promedio móvil a más del doble del pronóstico TSB. Si fue un evento puntual, conviene no extrapolarlo.</div>
+   <div><b style="font-size:13px">¿Qué fue este pedido?</b>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><span class="btn p" style="padding:8px 14px">Pedido extraordinario (conservar)</span><span class="btn" style="padding:8px 14px">Error de registro (excluir)</span><span class="btn" style="padding:8px 14px">Revisar después</span></div></div>
+   <div><b style="font-size:13px">Corregir pronóstico</b>
+    <div style="display:flex;gap:10px;margin-top:8px;align-items:center"><div class="input" style="margin:0;width:120px">1.506</div><span style="font-size:20px;color:var(--mut)">→</span><div class="input" style="margin:0;width:120px;color:var(--navy)">400</div><div class="input" style="margin:0;flex:1">Motivo: pedido puntual, sin recurrencia</div></div></div>
+   <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:auto"><span class="btn">Cancelar</span><span class="btn d">Guardar decisión</span></div>
+   <div class="sub" style="font-size:11.5px">La decisión se guarda en el historial y se usa en la siguiente ejecución. Nada se elimina automáticamente.</div>
+  </div>
+ </div>`,TAG);
+
+/* ---------- Pantalla 6: Métricas ---------- */
+const folds=[["B1",88.05,88.15],["B2",79.78,80.22],["B3",84.61,81.90],["B4",79.54,77.82],["B5",76.56,74.38],["B6",69.03,65.98]];
+function barChart(){const w=660,h=320,L=40,T=14,B=34;const mx=100;const gw=(w-L-10)/folds.length;let s="";
+  for(let k=0;k<=4;k++){const v=mx*k/4;const y=T+(h-T-B)*(1-v/mx);s+=`<line x1="${L}" x2="${w-10}" y1="${y}" y2="${y}" stroke="#e8edf5"/><text x="${L-6}" y="${y+4}" font-size="10" fill="#8a97ac" text-anchor="end">${v}%</text>`;}
+  folds.forEach((f,i)=>{const x=L+i*gw+gw*0.14;const bw=gw*0.34;[[f[1],"#9aa8c0"],[f[2],"#0e9f8e"]].forEach((d,j)=>{const hh=(h-T-B)*d[0]/mx;const y=T+(h-T-B)-hh;s+=`<rect x="${x+j*(bw+4)}" y="${y}" width="${bw}" height="${hh}" rx="3" fill="${d[1]}"/><text x="${x+j*(bw+4)+bw/2}" y="${y-4}" font-size="9.5" fill="#43526b" text-anchor="middle">${d[0].toFixed(1)}</text>`});s+=`<text x="${L+i*gw+gw/2}" y="${h-12}" font-size="11" fill="#66748b" text-anchor="middle">Bloque ${i+1}</text>`});
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${s}</svg>`}
+const P6=shell(6,5,"Métricas de éxito","Compara el error del pronóstico de StockIA con el método de referencia en bloques de evaluación sucesivos.",`
+ <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:14px">
+  <div class="card kpi"><small>WAPE · TSB</small><b class="t-teal">77,00 %</b><em class="t-green">▼ 2,10 % vs referencia</em></div>
+  <div class="card kpi"><small>WAPE · media 4 sem. (línea base)</small><b class="t-blue">78,65 %</b><em class="t-mut">Método actual sin IA</em></div>
+  <div class="card kpi"><small>Sesgo agregado</small><b>−6,13 %</b><em class="t-green">Dentro de ±10 %</em></div>
+  <div class="card kpi"><small>Productos mejores que la referencia</small><b>59,2 %</b><em class="t-green">Meta ≥ 55 %</em></div>
+ </div>
+ <div class="grid" style="grid-template-columns:1.4fr 1fr;flex:1;min-height:0">
+  <div class="card"><h3>WAPE por bloque de 8 semanas <span class="t-mut" style="font-weight:400">· <span style="color:#9aa8c0">■</span> media 4 sem. &nbsp;<span style="color:#0e9f8e">■</span> TSB</span></h3>${barChart()}
+   <div class="sub" style="font-size:12px">TSB supera a la referencia en 4 de 6 bloques; en los bloques 1 y 2 queda ligeramente por debajo.</div></div>
+  <div class="grid" style="grid-template-rows:auto auto 1fr;gap:14px">
+   <div class="card"><h3>Metas de la solución</h3>
+    <table><tr><th>Indicador</th><th>Meta</th><th>Actual</th></tr>
+    <tr><td>WAPE menor que la referencia</td><td>Sí</td><td><span class="badge b-green">Cumplida</span></td></tr>
+    <tr><td>Sesgo entre −10 % y +10 %</td><td>Sí</td><td><span class="badge b-green">Cumplida</span></td></tr>
+    <tr><td>Productos mejores que la referencia</td><td class="nw">≥ 55 %</td><td><span class="badge b-green">59,2 %</span></td></tr>
+    <tr><td>Mejora del WAPE en piloto con datos reales</td><td class="nw">≥ 5 %</td><td><span class="badge b-amber">Por validar</span></td></tr></table></div>
+   <div class="note"><b>Lectura honesta:</b> la mejora es modesta (≈2,1 %) y el error absoluto sigue alto. La meta de 5 % se evaluará con datos reales de un cliente.</div>
+   <div class="ia"><div class="ttl">IA · datos de entrada y salida</div><div class="io"><div><b>Entra:</b> pronósticos guardados y ventas reales de cada semana ya cerrada.</div><div><b>Sale:</b> WAPE, sesgo y % de productos mejores que la referencia, por bloque y por segmento.</div></div></div>
+  </div>
+ </div>`,TAG);
+
+/* ---------- Flujo ---------- */
+const KIND={ia:["#e6f6f3","#0e9f8e"],ok:["#ffffff","#b9c7de"],user:["#e5edfb","#3b6fd4"],err:["#fde9e7","#c8453b"],warn:["#fff3dc","#d98a0b"],end:["#14284b","#14284b"]};
+function box(x,y,w,h,t1,t2,kind){const c=KIND[kind];const dark=kind==="end";
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="${c[0]}" stroke="${c[1]}" stroke-width="2"/>
+  <text x="${x+w/2}" y="${y+h/2-(t2?5:-5)}" text-anchor="middle" font-size="14" font-weight="700" fill="${dark?'#fff':'#14284b'}">${t1}</text>
+  ${t2?`<text x="${x+w/2}" y="${y+h/2+14}" text-anchor="middle" font-size="11" fill="${dark?'#cfd9ea':'#66748b'}">${t2}</text>`:""}`}
+function dia(cx,cy,w,h,t1,t2){return `<polygon points="${cx},${cy-h/2} ${cx+w/2},${cy} ${cx},${cy+h/2} ${cx-w/2},${cy}" fill="#fff3dc" stroke="#d98a0b" stroke-width="2"/>
+  <text x="${cx}" y="${cy-3}" text-anchor="middle" font-size="13" font-weight="700" fill="#14284b">${t1}</text>
+  <text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="10.5" fill="#7a5200">${t2}</text>`}
+function line(d,col,dash,label,lx,ly){col=col||"#5b6b86";return `<path d="${d}" stroke="${col}" stroke-width="2" fill="none" ${dash?'stroke-dasharray="6 4"':''} marker-end="url(#a)"/>${label?`<text x="${lx}" y="${ly}" font-size="11.5" font-weight="700" fill="${col}">${label}</text>`:""}`}
+const P7=`<section class="page" id="p7" style="background:#fff;flex-direction:column;padding:26px 36px">
+ <div class="head"><div><h1>Diagrama de flujo de uso</h1><div class="sub">Camino principal y qué ocurre cuando los datos fallan, la IA tiene baja fiabilidad o el usuario corrige un resultado.</div></div><span class="tag">STOCKIA PREDICT · FLUJO</span></div>
+ <svg width="1368" height="770" viewBox="0 0 1368 770" style="margin-top:4px"><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs>
+  ${box(10,40,150,64,"Inicio / acceso","Pantalla 1","ok")}
+  ${line("M160,72 L205,72")}
+  ${box(205,40,170,64,"Cargar archivo","Pantalla 2 · CSV/XLSX","ok")}
+  ${line("M375,72 L430,72")}
+  ${dia(520,72,180,100,"¿Datos válidos?","columnas, fechas, cantidades")}
+  ${line("M610,72 L665,72","#2f8f5b",false,"Sí",628,62)}
+  ${box(665,40,190,64,"Preparar y segmentar","Series semanales · ADI/CV²","ia")}
+  ${line("M855,72 L895,72")}
+  ${box(895,40,200,64,"Pronosticar con TSB","+ referencia media 4 sem.","ia")}
+  ${line("M520,122 L520,200","#c8453b",false,"No",532,168)}
+  ${box(425,200,190,70,"Corregir mapeo o archivo","Mensaje de error · no se procesa","err")}
+  ${line("M425,235 L290,235 L290,104","#c8453b",true,"reintentar",296,222)}
+  ${line("M995,104 L995,210")}
+  ${dia(995,260,200,100,"¿Fiabilidad suficiente?","≥20 sem. de historia y no lumpy")}
+  ${line("M1095,260 L1140,260","#2f8f5b",false,"Sí",1108,250)}
+  ${box(1140,225,210,70,"Resultado de la IA","Pantalla 3 · pronóstico + explicación","ia")}
+  ${line("M995,310 L995,360","#d98a0b",false,"No",1007,340)}
+  ${box(880,360,230,76,"Baja fiabilidad","Aviso «revisión manual» + baseline visible","warn")}
+  ${line("M1110,385 L1200,295","#d98a0b",true,"se muestra con aviso",1122,420)}
+  ${line("M1290,295 L1290,480")}
+  ${box(1128,480,230,80,"Revisión y corrección","Pantalla 5 · alertas y ajuste","user")}
+  ${line("M1128,520 L1080,520")}
+  ${box(850,490,230,60,"Guardar decisión","Pantalla 4 · historial","ok")}
+  ${line("M850,520 L760,520 L760,104","#3b6fd4",true,"excluir / ajustar → nueva ejecución",768,330)}
+  ${line("M965,550 L965,610")}
+  ${box(850,610,230,70,"Métricas de éxito","Pantalla 6 · WAPE real vs referencia","ia")}
+  ${line("M1080,645 L1128,645")}
+  ${box(1128,610,200,70,"Siguiente semana","vuelve a «Cargar archivo»","end")}
+  <rect x="10" y="330" width="700" height="410" rx="14" fill="#f7f9fd" stroke="#e1e7f0"/>
+  <text x="30" y="362" font-size="15" font-weight="800" fill="#14284b">Cuándo la IA se equivoca o no tiene confianza</text>
+  <text font-size="13" fill="#34445f"><tspan x="30" y="392">• Datos inválidos: no se procesa; el usuario corrige el mapeo y reintenta.</tspan>
+   <tspan x="30" y="418">• Historia corta (&lt;20 semanas con ventas) o patrón lumpy: se marca «Fiabilidad baja»,</tspan><tspan x="46" y="438">se muestra la referencia (media 4 sem.) y se pide revisión manual.</tspan>
+   <tspan x="30" y="464">• Pedido extraordinario: se genera una alerta y el usuario decide si se conserva o se</tspan><tspan x="46" y="484">excluye; nada se elimina automáticamente.</tspan>
+   <tspan x="30" y="510">• Error del pronóstico: se mide cada semana contra la venta real (pantalla 6).</tspan></text>
+  <text x="30" y="556" font-size="15" font-weight="800" fill="#14284b">Leyenda</text>
+  <rect x="30" y="572" width="22" height="16" rx="4" fill="#e6f6f3" stroke="#0e9f8e" stroke-width="2"/><text x="60" y="585" font-size="12.5" fill="#34445f">Interviene la IA (entrada y salida anotadas en cada pantalla)</text>
+  <rect x="30" y="598" width="22" height="16" rx="4" fill="#e5edfb" stroke="#3b6fd4" stroke-width="2"/><text x="60" y="611" font-size="12.5" fill="#34445f">Decisión o corrección del usuario</text>
+  <rect x="30" y="624" width="22" height="16" rx="4" fill="#fff3dc" stroke="#d98a0b" stroke-width="2"/><text x="60" y="637" font-size="12.5" fill="#34445f">Punto de control / baja fiabilidad</text>
+  <rect x="30" y="650" width="22" height="16" rx="4" fill="#fde9e7" stroke="#c8453b" stroke-width="2"/><text x="60" y="663" font-size="12.5" fill="#34445f">Error de datos</text>
+  <text x="30" y="700" font-size="12" fill="#66748b">Datos de ejemplo: UCI Online Retail II (Chen, 2012), CC BY 4.0. Los mockups no representan un sistema en operación.</text>
+ </svg></section>`;
+
+/* ---------- Montaje ---------- */
+const pages=[P1,P2,P3,P4,P5,P6,P7];
+const q=new URLSearchParams(location.search).get("p");
+document.getElementById("root").innerHTML=(q?[pages[+q-1]]:pages).join("");
+if(document.getElementById("chart3")) document.getElementById("chart3").innerHTML=lineChart([657,660,404,156,599,152,369,1689,524,1172,557,654],724,727,420,280);
+</script>
+</body>
+</html>

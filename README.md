@@ -32,12 +32,11 @@ Detalle, tablas por bloque, segmento y producto: [`docs/RESULTADOS.md`](docs/RES
 ├── docs/
 │   ├── RESULTADOS.md          # Cifras oficiales (única fuente)
 │   ├── METODOLOGIA.md         # Datos, protocolo, reproducibilidad, correcciones
-│   ├── entrega/               # Requisitos de la Evaluación Sumativa 3
-│   ├── academic/              # Documentos 01–08 (evidencia de apoyo)
+│   ├── entrega/               # Preinforme, mockups y presentación (Evaluación Sumativa 3)
+│   ├── academic/              # Documentos 01, 02, 07 y 08 vigentes
 │   ├── business/              # Modelo de negocio y propuesta de valor
-│   ├── design/mockups/        # Mockups conceptuales
 │   ├── validation/            # Protocolo de entrevistas (opcional)
-│   └── archive/               # Documentos de la etapa exploratoria v0.3
+│   └── archive/               # Documentos superados (Word v1, protocolo v0.3)
 ├── reports/
 │   ├── backtesting/           # Resultados oficiales
 │   ├── eda/                   # Auditoría del dataset

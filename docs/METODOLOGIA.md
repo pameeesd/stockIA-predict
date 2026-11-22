@@ -33,7 +33,7 @@ El panel actual se regeneró con `01_audit_dataset.py` desde el Excel original (
 | Mejora relativa | 2,19 % | **2,10 %** |
 | Bloques donde TSB supera al baseline | 5 de 6 | **4 de 6** |
 
-La conclusión cualitativa no cambia. Los Documentos 04–08 (Word) y los resultados de `reports/archive_v0.3/` se calcularon con el panel anterior; las cifras vigentes son las de `docs/RESULTADOS.md`.
+La conclusión cualitativa no cambia. Los Documentos Word 03–06 y los resultados de `reports/archive_v0.3/` se calcularon con el panel anterior y quedaron archivados (`docs/archive/`); en los Documentos 07 y 08 se actualizaron las cifras. Las cifras vigentes son las de `docs/RESULTADOS.md`.
 
 ## Backtesting multi-origen (`scripts/05_backtesting_model_selection.py`)
 

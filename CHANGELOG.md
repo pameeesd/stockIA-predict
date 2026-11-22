@@ -41,3 +41,9 @@
 - Resultados v0.3 movidos a `reports/archive_v0.3/` y documentos previos a `docs/archive/`.
 - `RESULTS_SUMMARY.md` y `BACKTESTING_RECONSTRUCTION.md` reemplazados por `docs/RESULTADOS.md` y `docs/METODOLOGIA.md`.
 - Se agrega `docs/entrega/REQUISITOS_EVALUACION_3.md` (matriz de la pauta).
+
+## v0.7 - Entrega de la Evaluación Sumativa 3 (2026-11-22)
+
+- `docs/entrega/`: preinforme (portada + 3 páginas), mockups (6 pantallas + flujo con rama de error y anotaciones de IA) y presentación (5 diapositivas), con fuentes HTML y guion de exposición.
+- Documentos 07 y 08 actualizados con las cifras corregidas; Documentos 03–06 archivados en `docs/archive/word_v1/`; mockups v1 reemplazados.
+- Preinforme ampliado: introducción y caso de estudio (negocio anonimizado con sus datos reales), solución elegida frente a alternativas y resultados esperados; ahora portada + 4 páginas. Presentación y guion alineados.

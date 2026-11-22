@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>StockIA Predict — Preinforme</title>
+<style>
+@page { size: A4; margin: 15mm 15mm 16mm 15mm; }
+:root{--navy:#14284b;--teal:#0e9f8e;--mut:#5a6880;--line:#d9e0ec;--soft:#f3f6fb;}
+*{box-sizing:border-box}
+html,body{margin:0;font-family:"Segoe UI",Calibri,Arial,sans-serif;color:#1f2a40;font-size:9.6pt;line-height:1.38}
+h1,h2,h3{color:var(--navy);margin:0}
+h2{break-after:avoid;page-break-after:avoid;font-size:11.6pt;margin:11px 0 4px;padding-bottom:2px;border-bottom:1.5px solid var(--teal)}
+h2 .n{color:var(--teal);margin-right:5px}
+p{margin:3px 0 5px}
+ul{margin:3px 0 5px;padding-left:16px}li{margin:1px 0}
+table{width:100%;border-collapse:collapse;margin:4px 0 6px;font-size:8.9pt;page-break-inside:avoid}
+th{background:var(--navy);color:#fff;text-align:left;padding:3px 6px;font-weight:600}
+td{border:1px solid var(--line);padding:3px 6px;vertical-align:top}
+tr:nth-child(even) td{background:var(--soft)}
+.cover{height:262mm;display:flex;flex-direction:column;justify-content:center;page-break-after:always;break-after:page;position:relative}
+.cover .band{background:linear-gradient(135deg,#14284b,#0e7f74);color:#fff;border-radius:14px;padding:38px 36px}
+.cover h1{color:#fff;font-size:30pt;letter-spacing:-.01em}
+.cover .sub{font-size:13pt;margin-top:8px;color:#d6e4f3}
+.cover table{width:auto;margin:26px 0 0;font-size:11pt}
+.cover td{border:none;background:none;padding:4px 18px 4px 0}
+.cover td:first-child{color:var(--mut);font-weight:600}
+.note{background:#fff3dc;border-left:3px solid #d98a0b;padding:4px 8px;margin:5px 0;font-size:9pt}
+.kpis{display:flex;gap:8px;margin:5px 0 6px}
+.kpi{flex:1;border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:var(--soft)}
+.kpi b{display:block;font-size:14pt;color:var(--navy)}.kpi span{font-size:8.2pt;color:var(--mut)}
+.src{font-size:8pt;color:var(--mut)}
+.b{font-weight:700}.teal{color:var(--teal)}
+</style>
+</head>
+<body>
+
+<section class="cover">
+ <div class="band">
+  <div style="font-size:11pt;letter-spacing:.14em;color:#9fd8cf;margin-bottom:10px">PREINFORME · EVALUACIÓN SUMATIVA 3</div>
+  <h1>StockIA Predict</h1>
+  <div class="sub">Pronóstico semanal de ventas por producto y alertas de volumen inusual para comercio electrónico</div>
+ </div>
+ <table>
+  <tr><td>Asignatura</td><td>TI2082 · Aplicaciones de Inteligencia Artificial</td></tr>
+  <tr><td>Carrera</td><td>Ingeniería en Informática</td></tr>
+  <tr><td>Integrantes</td><td>Pamela Salas · Pablo Jara</td></tr>
+  <tr><td>Tipo de IA</td><td>Predicción (series de tiempo de demanda intermitente)</td></tr>
+  <tr><td>Fecha de entrega</td><td>25 de noviembre de 2026</td></tr>
+ </table>
+</section>
+
+<h2><span class="n">1.</span>Introducción y caso de estudio</h2>
+<p><b>Caso de estudio.</b> Tomamos como caso real al <b>comercio electrónico británico anonimizado</b> descrito en el dataset público <i>Online Retail II</i> (Chen, 2012, UCI): una empresa registrada en el Reino Unido, sin tiendas físicas, que vende principalmente artículos de regalo y cuyos clientes incluyen muchos mayoristas. Su identidad no se publica y la empresa no participó en este trabajo: trabajamos con sus <b>transacciones reales</b> entre el 01-12-2009 y el 09-12-2011 (1.067.371 registros, 43 países, 5.131 códigos de producto). Nos ubicamos como un equipo que le propone una solución de IA a ese negocio y comprobamos con sus propios datos si funcionaría. No existe contrato ni entrevista con la empresa.</p>
+<p><b>Por qué lo elegimos.</b> (1) Son datos reales y abiertos, lo que permite medir el problema y verificar la solución con evidencia reproducible. (2) Su catálogo es heterogéneo, con productos estables, de venta irregular y pedidos de gran volumen: el escenario donde un pronóstico simple falla. (3) Es representativo de una pyme de comercio electrónico, el cliente objetivo de StockIA.</p>
+<p><b>Cómo podríamos ayudar.</b> Con una herramienta que convierta su historial de ventas en un pronóstico semanal por producto, clasifique cada artículo según su patrón de demanda y avise de pedidos de volumen inusual, para que su equipo concentre la revisión donde hay más incertidumbre. <b>Alcance:</b> las conclusiones valen para este negocio y período (Reino Unido, 2009–2011); no afirmamos ahorros ni reducción de quiebres, porque el dataset no registra stock ni costos. <b>Proyecto:</b> StockIA Predict · <b>Integrantes:</b> Pamela Salas y Pablo Jara.</p>
+
+<h2><span class="n">2.</span>¿Cuál es el dolor?</h2>
+<p>Planificar cuántas unidades se venderán de cada artículo la semana siguiente es difícil cuando la demanda es irregular, y un único promedio no distingue entre un producto estable y uno que vende en saltos. Medimos el problema sobre el dataset original (1.067.371 registros; Reino Unido, 104 semanas completas, 2009–2011):</p>
+<div class="kpis">
+ <div class="kpi"><b>62 %</b><span>de las combinaciones artículo-semana no registra ninguna venta (4.775 artículos × 104 semanas)</span></div>
+ <div class="kpi"><b>81 %</b><span>de las unidades evaluadas pertenece a artículos de demanda irregular (erratic 55 % + lumpy 26 %)</span></div>
+ <div class="kpi"><b>78,65 %</b><span>error (WAPE) del método de referencia, promedio móvil de 4 semanas: ~79 unidades de error por cada 100 vendidas</span></div>
+</div>
+<ul>
+<li><b>Errores de pronóstico:</b> en artículos <i>lumpy</i> el método de referencia llega a 97,10 % de error y en <i>erratic</i> a 77,93 % (6 bloques de evaluación de 8 semanas, 2.201 artículos).</li>
+<li><b>Pedidos extraordinarios:</b> una sola factura de 12.540 unidades concentra el 99,8 % de lo vendido del artículo 84826 entre agosto y noviembre de 2011. Un promedio móvil la proyecta hacia adelante (3.138 unidades para la semana siguiente) cuando se trató de un evento puntual.</li>
+<li><b>Costo:</b> el dataset no registra stock, ventas perdidas ni costos, por lo que <u>no se puede cuantificar el impacto económico</u>; la evidencia de impacto disponible es el error de pronóstico. Cualquier ahorro de tiempo o de dinero es una hipótesis a medir en un piloto.</li>
+</ul>
+<p class="src">Fuentes: Chen, D. (2012), <i>Online Retail II</i>, UCI, DOI 10.24432/C5CG6D (CC BY 4.0). Medición propia: repositorio del proyecto, <code>reports/eda/</code> y <code>reports/backtesting/</code> (github.com/pameeesd/stockIA-predict).</p>
+
+<h2><span class="n">3.</span>¿A quién le afecta?</h2>
+<table>
+<tr><th style="width:26%">Rol</th><th>Relación con el problema</th></tr>
+<tr><td>Analista de planificación comercial (usuario final)</td><td>Prepara cada semana las cifras de venta esperadas por producto y revisa pedidos fuera de lo común.</td></tr>
+<tr><td>Responsable de catálogo / categoría</td><td>Necesita saber qué artículos son estables y cuáles irregulares para priorizar su revisión.</td></tr>
+<tr><td>Dueño o gerente de operaciones (decide y paga)</td><td>Decide adoptar la herramienta si mejora la planificación sin reemplazar su plataforma actual ni exigir integraciones complejas.</td></tr>
+</table>
+
+<h2><span class="n">4.</span>¿Por qué IA?</h2>
+<p><b>Alternativas sin IA consideradas</b> (todas medidas en el mismo experimento): reglas simples tipo planilla o <i>if/else</i> (última semana, promedio móvil de 4 y de 13 semanas) y una base de datos tradicional, que agrega y consulta ventas pero no las proyecta. Un promedio fijo mezcla semanas en cero con picos y trata igual a todos los productos; reglas manuales por producto no escalan a miles de artículos ni se actualizan solas.</p>
+<p><b>Tipo de IA: Predicción.</b> Usamos <b>TSB</b> (Teunter, Syntetos y Babai, 2011), un método estadístico adaptativo para demanda intermitente: estima por separado la <i>probabilidad</i> de que haya venta y el <i>tamaño</i> esperado, y ambos se actualizan cada semana con el historial. El parámetro de suavizado se elige con las semanas recientes, sin mirar el período evaluado. Es inteligencia predictiva, <u>no Machine Learning supervisado</u>. También evaluamos modelos de ML (HistGradientBoosting, LightGBM): no superaron a TSB, por lo que no se justifica usarlos como núcleo. Las alertas de volumen usan reglas estadísticas por producto.</p>
+<table>
+<tr><th>Estrategia (6 bloques externos de 8 semanas)</th><th>WAPE</th><th>Sesgo</th></tr>
+<tr><td>Última semana (regla simple)</td><td>90,25 %</td><td>−3,02 %</td></tr>
+<tr><td>Promedio móvil 13 semanas</td><td>83,56 %</td><td>−0,34 %</td></tr>
+<tr><td><b>Promedio móvil 4 semanas (línea base, sin IA)</b></td><td><b>78,65 %</b></td><td>−4,77 %</td></tr>
+<tr><td>HGB Hurdle Poisson (Machine Learning)</td><td>78,41 %</td><td>−1,10 %</td></tr>
+<tr><td class="teal b">TSB (solución elegida)</td><td class="teal b">77,00 %</td><td>−6,13 %</td></tr>
+</table>
+<p class="src">TSB reduce el error ≈2,10 % respecto de la línea base (1,65 puntos porcentuales) y la supera en 4 de 6 bloques y en el 59 % de los productos. La mejora es <b>modesta</b>: es una prueba de concepto, no un sistema para automatizar compras.</p>
+
+<h2><span class="n">5.</span>Solución propuesta y resultados esperados</h2>
+<p><b>Solución elegida y por qué.</b> Comparamos cuatro opciones con los mismos datos y el mismo protocolo (6 bloques externos de 8 semanas):</p>
+<table>
+<tr><th style="width:34%">Opción</th><th style="width:19%">Resultado</th><th>Decisión</th></tr>
+<tr><td>A. Reglas simples / promedio móvil (sin IA)</td><td>WAPE 78,65 %</td><td>Línea base y respaldo.</td></tr>
+<tr><td>B. Machine Learning supervisado global (HGB, LightGBM)</td><td>78,41 % a 79,88 %</td><td>Descartado como núcleo: no supera a TSB y es menos explicable.</td></tr>
+<tr><td>C. Híbrido que elige un modelo por patrón de demanda</td><td>75,93 %, sesgo −13,45 %</td><td>Alternativa: menor error total, pero subestima más y mejora al baseline en solo 49 % de los productos.</td></tr>
+<tr><td class="teal b">D. TSB + clasificación ADI/CV² + alertas</td><td class="teal b">77,00 %, sesgo −6,13 %</td><td><b>Elegida:</b> un único método transparente, con mejor equilibrio entre sesgo y consistencia por producto (59 % de los productos mejoran).</td></tr>
+</table>
+<p><b>Qué le entregaríamos al negocio:</b> una aplicación web que (1) carga y valida su historial de ventas, (2) clasifica cada artículo como smooth, erratic, intermittent o lumpy, (3) pronostica con TSB las unidades de la semana siguiente mostrando la referencia y la fiabilidad del resultado, (4) alerta de pedidos de volumen inusual para que una persona decida y (5) registra y mide el error cada semana. <b>Tipo de IA:</b> Predicción, con TSB como método adaptativo (ver sección 4). No incluimos compras automáticas, porque faltan los datos para hacerlas con fiabilidad.</p>
+<p><b>Resultados que esperamos y mejoras para el negocio:</b></p>
+<ul>
+<li><b>Ya medido con sus datos:</b> 2,10 % menos error que el promedio móvil, mejora en 59 % de los productos y sesgo de −6,13 %.</li>
+<li><b>Meta a validar en un piloto:</b> mejora relativa ≥ 5 % (WAPE ≤ 74,7 %) con datos recientes del negocio.</li>
+<li><b>Mejora de proceso (hipótesis):</b> revisión focalizada, pues el 81 % de las unidades está en artículos irregulares; y menos tiempo de preparación semanal, que aún no medimos.</li>
+<li><b>Fase futura</b> (requiere inventario, plazos y ventas perdidas, que el dataset no tiene): extender el pronóstico a cantidades de reposición.</li>
+</ul>
+
+<h2><span class="n">6.</span>Impacto esperado: antes y después</h2>
+<table>
+<tr><th style="width:22%">Aspecto</th><th>Antes (proceso actual)</th><th>Después (con StockIA)</th></tr>
+<tr><td>Pronóstico semanal</td><td>Promedio móvil o planilla, igual para todos los productos; error 78,65 %.</td><td>TSB por producto con la referencia visible; error 77,00 % (−2,10 %).</td></tr>
+<tr><td>Tipo de demanda</td><td>Sin clasificar; todos los artículos se tratan igual.</td><td>Cada artículo se clasifica (smooth, erratic, intermittent, lumpy) y muestra su fiabilidad histórica.</td></tr>
+<tr><td>Pedidos extraordinarios</td><td>Se detectan solo si alguien revisa las facturas; distorsionan el promedio.</td><td>Alerta con su motivo (veces la mediana del artículo); el usuario decide conservar o excluir.</td></tr>
+<tr><td>Trazabilidad</td><td>Cálculos dispersos en archivos.</td><td>Historial de ejecuciones con corte, método y parámetros.</td></tr>
+<tr><td>Tiempo de preparación</td><td colspan="2">No medido en este estudio. Se medirá en el piloto (minutos de preparación semanal antes y después).</td></tr>
+</table>
+
+<h2><span class="n">7.</span>Modelo de negocio y propuesta de valor</h2>
+<p><b>Propuesta de valor:</b> «Para comercios electrónicos con catálogos heterogéneos, StockIA convierte el historial de ventas en pronósticos semanales por producto y alertas de excepción explicables, para concentrar la revisión en los artículos y eventos de mayor incertidumbre, sin reemplazar su plataforma de comercio ni su ERP.»</p>
+<table>
+<tr><th style="width:21%">Bloque del lienzo</th><th>Respuesta</th></tr>
+<tr><td>Segmento de usuarios</td><td>Usa: analista de planificación y responsable de catálogo. Paga y decide: dueño o gerente de operaciones de un comercio electrónico pyme.</td></tr>
+<tr><td>Propuesta de valor</td><td>Pronóstico semanal por producto (TSB), clasificación del patrón de demanda y alertas de volumen inusual con revisión humana, a partir de un archivo CSV/XLSX.</td></tr>
+<tr><td>Canal de entrega</td><td>Aplicación web: carga de archivo, tablero, historial y exportación CSV.</td></tr>
+<tr><td>Ahorro o ingreso</td><td>Ingreso: suscripción mensual por tramo de artículos analizados (hipótesis a validar: £19, £39 y £59 al mes) y servicio puntual de incorporación de datos. Beneficio del cliente: menos tiempo de preparación y revisión focalizada (por medir).</td></tr>
+<tr><td>Costos clave</td><td>Desarrollo y mantenimiento, alojamiento en la nube (bajo: el cálculo de TSB toma segundos), soporte e incorporación de datos. No usa APIs de IA de pago.</td></tr>
+</table>
+
+<h2><span class="n">8.</span>Métrica de éxito</h2>
+<table>
+<tr><th style="width:24%">Indicador</th><th style="width:21%">Línea base</th><th style="width:22%">Meta</th><th>Cómo se medirá</th></tr>
+<tr><td><b>WAPE</b> del pronóstico semanal (Σ|error| / Σ ventas)</td><td>78,65 % (promedio móvil 4 semanas). Resultado actual de TSB: 77,00 %</td><td>MVP: menor que la línea base. Piloto con datos reales: mejora relativa ≥ 5 % (≤ 74,7 %)</td><td>Backtesting en bloques de 8 semanas, un paso adelante; en la app, pronóstico guardado vs venta real de cada semana cerrada (pantalla 6).</td></tr>
+<tr><td>Sesgo agregado</td><td>−4,77 %. TSB: −6,13 %</td><td>Entre −10 % y +10 %</td><td>(Σ pronóstico − Σ real) / Σ real, por bloque y por segmento.</td></tr>
+<tr><td>Productos con menor error que la referencia</td><td>—</td><td>≥ 55 %. Actual: 59,2 %</td><td>Comparación del error absoluto por producto contra el promedio móvil.</td></tr>
+</table>
+
+<h2><span class="n">9.</span>Datos</h2>
+<ul>
+<li><b>Origen:</b> <i>Online Retail II</i>, UCI Machine Learning Repository (Chen, 2012), licencia CC BY 4.0, con atribución. Transacciones reales anonimizadas de un comercio británico (dic. 2009–dic. 2011); no son datos recopilados por nosotros.</li>
+<li><b>Datos personales:</b> el campo <i>Customer ID</i> es un identificador numérico seudonimizado (faltante en 22,76 % de las filas). <u>No se usa en el modelo</u>, no se muestra en pantallas ni se exporta. No se recopilan nombres, correos ni datos de contacto.</li>
+<li><b>Consentimiento y resguardo:</b> al ser un conjunto público bajo CC BY 4.0, no se solicita consentimiento adicional en este estudio. En un uso real con datos de un cliente se firmaría un acuerdo de tratamiento, se minimizarían los campos, se separarían los datos por cliente, con acceso por roles, cifrado y retención limitada (UK GDPR / guías de la ICO).</li>
+<li><b>Preparación:</b> se eliminan duplicados exactos (34.335), cancelaciones y cantidades no positivas; se agrega por artículo y semana.</li>
+</ul>
+
+<h2><span class="n">10.</span>Riesgos y supuestos críticos</h2>
+<table>
+<tr><th style="width:5%">N.º</th><th style="width:15%">Tipo</th><th style="width:36%">Riesgo o supuesto</th><th>Mitigación</th></tr>
+<tr><td>1</td><td>Técnico</td><td>La mejora sobre la línea base es modesta (≈2,1 %) y el error absoluto es alto (~77 %).</td><td>Mostrar siempre la referencia y el error histórico; no automatizar compras; meta de 5 % a validar en un piloto.</td></tr>
+<tr><td>2</td><td>Datos</td><td>Las ventas observadas no son demanda real: no hay stock, ventas perdidas ni compras; los datos son de 2009–2011 y del Reino Unido.</td><td>Declarar el alcance; solicitar inventario en una fase futura; reentrenar y validar con datos recientes antes de cualquier uso real.</td></tr>
+<tr><td>3</td><td>Técnico</td><td>Pedidos de gran volumen distorsionan el pronóstico; una factura grande no prueba que el cliente sea mayorista.</td><td>Alertas transparentes con revisión humana; no eliminar automáticamente ni etiquetar clientes.</td></tr>
+<tr><td>4</td><td>Ético / privacidad</td><td>Exposición o reidentificación a partir de identificadores de clientes.</td><td>Excluir <i>Customer ID</i> del modelo, de pantallas y exportaciones.</td></tr>
+<tr><td>5</td><td>Adopción</td><td>Usuarios que confían en exceso en el pronóstico o lo ignoran; supuesto de que existe un cliente dispuesto a pagar.</td><td>Mostrar fiabilidad y límites en cada resultado; validar la necesidad con entrevistas (protocolo en el repositorio) antes de invertir en integraciones.</td></tr>
+</table>
+
+<h2><span class="n">11.</span>Alcance del MVP y stack preliminar</h2>
+<table>
+<tr><th style="width:50%">Entra en la Evaluación Sumativa 4</th><th>No entra</th></tr>
+<tr><td><ul style="margin:0"><li>Carga de CSV/XLSX con validación de calidad.</li><li>Series semanales y segmentación ADI/CV².</li><li>Pronóstico TSB con referencia (promedio móvil 4 semanas).</li><li>Alertas de volumen inusual y registro de la decisión del usuario.</li><li>Historial de ejecuciones y panel de métricas; exportación CSV.</li></ul></td>
+<td><ul style="margin:0"><li>Cálculo de stock, quiebres o cantidades de compra; órdenes de compra.</li><li>Integración con ERP/POS; multiusuario con pagos.</li><li>Clasificar clientes como mayoristas.</li></ul></td></tr>
+</table>
+<p><b>Stack evaluado:</b> Python 3.13 (pandas, NumPy, scikit-learn y LightGBM para el benchmark), implementación propia de TSB (sin API de IA externa), interfaz web con Streamlit, SQLite para el historial, Docker y GitHub Actions para ejecución y pruebas reproducibles.</p>
+
+<h2>Referencias</h2>
+<p class="src" style="line-height:1.35">Chen, D. (2012). <i>Online Retail II</i> [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D · Teunter, R. H., Syntetos, A. A., &amp; Babai, M. Z. (2011). Intermittent demand: Linking forecasting to inventory obsolescence. <i>European Journal of Operational Research, 214</i>(3), 606–615. https://doi.org/10.1016/j.ejor.2011.05.018 · Syntetos, A. A., &amp; Boylan, J. E. (2005). The accuracy of intermittent demand estimates. <i>International Journal of Forecasting, 21</i>(2), 303–314. https://doi.org/10.1016/j.ijforecast.2004.10.001 · Código y resultados: https://github.com/pameeesd/stockIA-predict</p>
+</body>
+</html>

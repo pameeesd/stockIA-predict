@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>StockIA Predict — Presentación</title>
+<style>
+@page { size: 1280px 720px; margin: 0; }
+:root{--navy:#14284b;--teal:#0e9f8e;--tealbg:#e6f6f3;--blue:#3b6fd4;--amber:#d98a0b;--amberbg:#fff3dc;--red:#c8453b;--mut:#66748b;--line:#e1e7f0;--bg:#f3f6fb}
+*{box-sizing:border-box}
+html,body{margin:0;font-family:"Segoe UI",system-ui,Arial,sans-serif;color:var(--navy)}
+.s{width:1280px;height:720px;position:relative;overflow:hidden;background:var(--bg);page-break-after:always;break-after:page;padding:44px 58px 40px}
+.s:last-child{page-break-after:auto;break-after:auto}
+.s h1{margin:0;font-size:38px;letter-spacing:-.01em}
+.s .k{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--teal);margin-bottom:8px}
+.src{position:absolute;left:58px;bottom:18px;font-size:11.5px;color:var(--mut)}
+.who{position:absolute;right:58px;bottom:18px;font-size:11.5px;color:var(--mut);font-weight:600}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 24px}
+.grid{display:grid;gap:18px}
+.big{font-size:60px;font-weight:800;line-height:1;letter-spacing:-.02em}
+.lab{font-size:16px;color:#43526b;margin-top:8px;line-height:1.35}
+.t{color:var(--teal)}.b{color:var(--blue)}.r{color:var(--red)}.a{color:var(--amber)}
+.cover{background:linear-gradient(135deg,#14284b 0%,#1d3a66 55%,#0e7f74 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 90px}
+.cover h1{font-size:76px;margin:6px 0 14px}
+.cover .sub{font-size:27px;color:#d3e2f3;max-width:880px;line-height:1.3}
+.cover .meta{margin-top:46px;font-size:21px;color:#fff;line-height:1.7}
+.cover .meta span{color:#9fd8cf}
+table{width:100%;border-collapse:collapse;font-size:17px}
+th{background:var(--navy);color:#fff;text-align:left;padding:10px 14px;font-size:14px;letter-spacing:.04em}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.35}
+tr:nth-child(even) td{background:#f7f9fd}
+.pill{display:inline-block;padding:3px 12px;border-radius:20px;font-size:13px;font-weight:700}
+.bar{display:flex;align-items:center;gap:12px;margin:9px 0;font-size:16px}
+.bar .n{width:300px;text-align:right;color:#43526b}
+.bar .tr{flex:1;background:#e9eef7;border-radius:6px;height:26px;position:relative}
+.bar .f{height:26px;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-weight:700;font-size:14px}
+</style>
+</head>
+<body>
+
+<!-- 1 Portada -->
+<section class="s cover">
+  <div style="font-size:14px;letter-spacing:.16em;color:#9fd8cf;font-weight:700">EVALUACIÓN SUMATIVA 3 · TI2082 APLICACIONES DE INTELIGENCIA ARTIFICIAL</div>
+  <h1>StockIA Predict</h1>
+  <div class="sub">Pronóstico semanal de ventas por producto y alertas de volumen inusual para comercio electrónico</div>
+  <div class="meta"><span>Integrantes</span> &nbsp;Pamela Salas · Pablo Jara<br><span>Caso de estudio</span> &nbsp;Comercio electrónico británico anonimizado · datos reales (UCI Online Retail II)<br><span>Tipo de IA</span> &nbsp;Predicción · demanda intermitente<br><span>Fecha</span> &nbsp;25 de noviembre de 2026</div>
+</section>
+
+<!-- 2 Problema e impacto -->
+<section class="s">
+  <div class="k">1 · EL CASO, EL PROBLEMA Y SU IMPACTO</div>
+  <h1>Planificar la demanda por producto falla cuando las ventas son irregulares</h1>
+  <div style="font-size:17px;color:#43526b;margin-top:10px;max-width:1100px">Nuestro caso es el <b>comercio electrónico británico anonimizado</b> del dataset público: 1.067.371 transacciones reales (2009–2011). Le proponemos una solución de IA y la probamos con sus propios datos.</div>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:18px">
+    <div class="card"><div class="big t">62 %</div><div class="lab">de las combinaciones artículo-semana <b>no registra ninguna venta</b> (4.775 artículos × 104 semanas)</div></div>
+    <div class="card"><div class="big b">81 %</div><div class="lab">de las unidades evaluadas son de artículos de <b>demanda irregular</b> (erratic + lumpy)</div></div>
+    <div class="card"><div class="big r">78,65 %</div><div class="lab">de error del método actual (promedio móvil 4 semanas): ~79 unidades de error por cada 100 vendidas</div></div>
+  </div>
+  <div class="grid" style="grid-template-columns:1.1fr 1fr;margin-top:18px">
+    <div class="card" style="border-left:6px solid var(--amber)">
+      <div style="font-size:15px;font-weight:700;color:var(--amber);letter-spacing:.06em">PEDIDO EXTRAORDINARIO · ARTÍCULO 84826</div>
+      <div style="font-size:21px;line-height:1.4;margin-top:8px">Una factura de <b>12.540 unidades</b> = 99,8 % de lo vendido entre ago y nov 2011. El promedio móvil proyecta <b class="b">3.138</b> para la semana siguiente; TSB, <b class="t">1.506</b>.</div>
+    </div>
+    <div class="card">
+      <table>
+        <tr><th></th><th>Antes</th><th>Después</th></tr>
+        <tr><td><b>Error</b></td><td>78,65 %</td><td class="t"><b>77,00 %</b></td></tr>
+        <tr><td><b>Demanda</b></td><td>Sin clasificar</td><td>4 patrones</td></tr>
+        <tr><td><b>Picos</b></td><td>Sin detectar</td><td>Alerta + decisión</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="src">Fuente: Chen (2012), Online Retail II, UCI, DOI 10.24432/C5CG6D · medición propia (github.com/pameeesd/stockIA-predict). Sin stock ni costos en el dataset: el impacto se mide como error.</div>
+  <div class="who">Pamela</div>
+</section>
+
+<!-- 3 Por qué IA -->
+<section class="s">
+  <div class="k">2 · ¿POR QUÉ IA?</div>
+  <h1>Reglas simples y bases de datos no bastan: elegimos predicción adaptativa</h1>
+  <div class="grid" style="grid-template-columns:1.25fr 1fr;margin-top:26px">
+    <div class="card">
+      <div style="font-size:15px;font-weight:700;color:var(--mut);margin-bottom:6px">ERROR (WAPE) · 6 BLOQUES EXTERNOS DE 8 SEMANAS</div>
+      <div class="bar"><div class="n">Última semana (regla)</div><div class="tr"><div class="f" style="width:90%;background:#9aa8c0">90,25 %</div></div></div>
+      <div class="bar"><div class="n">Media móvil 13 sem. (regla)</div><div class="tr"><div class="f" style="width:83.6%;background:#9aa8c0">83,56 %</div></div></div>
+      <div class="bar"><div class="n"><b>Media móvil 4 sem. (línea base)</b></div><div class="tr"><div class="f" style="width:78.7%;background:var(--blue)">78,65 %</div></div></div>
+      <div class="bar"><div class="n">HGB Hurdle (Machine Learning)</div><div class="tr"><div class="f" style="width:78.4%;background:#9aa8c0">78,41 %</div></div></div>
+      <div class="bar"><div class="n"><b>TSB (solución)</b></div><div class="tr"><div class="f" style="width:77%;background:var(--teal)">77,00 %</div></div></div>
+      <div style="font-size:14px;color:var(--mut);margin-top:14px">Menor es mejor. TSB reduce el error ≈2,10 % y supera la línea base en 4 de 6 bloques y en el 59 % de los productos.</div>
+    </div>
+    <div class="grid" style="grid-template-rows:auto auto;gap:14px;align-content:start">
+      <div class="card"><div style="font-weight:800;font-size:18px;margin-bottom:6px">¿Por qué no <i>if/else</i> o SQL?</div><div style="font-size:16.5px;line-height:1.45">Un promedio fijo mezcla ceros y picos y trata igual a todos los productos. TSB estima la <b>probabilidad de venta</b> y el <b>tamaño</b> por separado y se actualiza cada semana.</div></div>
+      <div class="card" style="background:var(--tealbg);border-color:#bfe6df"><div style="font-weight:800;font-size:18px;margin-bottom:6px" class="t">Tipo de IA: Predicción</div><div style="font-size:16.5px;line-height:1.45">TSB es un método <b>estadístico adaptativo</b>, no ML supervisado. Probamos HGB y LightGBM: <b>no lo superaron</b>, así que no justifican ser el núcleo.</div></div>
+    </div>
+  </div>
+  <div class="src">Fuente: backtesting propio, 2.201 artículos, 105.648 observaciones (docs/RESULTADOS.md). Teunter, Syntetos y Babai (2011), EJOR 214(3).</div>
+  <div class="who">Pamela</div>
+</section>
+
+<!-- 4 Modelo de negocio y métrica -->
+<section class="s">
+  <div class="k">3 · MODELO DE NEGOCIO Y MÉTRICA DE ÉXITO</div>
+  <h1>Suscripción SaaS para pymes de e-commerce, medida por el error de pronóstico</h1>
+  <div class="grid" style="grid-template-columns:1.25fr 1fr;margin-top:24px">
+    <div class="card" style="padding:12px 16px">
+      <table style="font-size:15.5px">
+        <tr><th style="width:27%">Lienzo</th><th>Respuesta</th></tr>
+        <tr><td><b>Segmento</b></td><td>Usa: analista de planificación. Paga y decide: dueño o gerente de operaciones.</td></tr>
+        <tr><td><b>Propuesta de valor</b></td><td>Pronóstico semanal por producto, patrón de demanda y alertas explicables, desde un CSV/XLSX.</td></tr>
+        <tr><td><b>Canal</b></td><td>Aplicación web con historial y exportación.</td></tr>
+        <tr><td><b>Ahorro / ingreso</b></td><td>Suscripción por tramo de artículos (£19 · £39 · £59 por validar). Ahorro de tiempo: por medir.</td></tr>
+        <tr><td><b>Costos clave</b></td><td>Desarrollo, nube (bajo), soporte y carga de datos. Sin API de IA de pago.</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div style="font-size:15px;font-weight:700;color:var(--mut);letter-spacing:.05em">MÉTRICA PRINCIPAL · WAPE</div>
+      <div style="display:flex;align-items:flex-end;gap:16px;margin:14px 0">
+        <div><div style="font-size:14px;color:var(--mut)">Línea base</div><div class="big b" style="font-size:46px">78,65 %</div></div>
+        <div style="font-size:30px;color:var(--mut);padding-bottom:6px">→</div>
+        <div><div style="font-size:14px;color:var(--mut)">TSB hoy</div><div class="big t" style="font-size:46px">77,00 %</div></div>
+      </div>
+      <table style="font-size:15px">
+        <tr><th>Meta</th><th>Estado</th></tr>
+        <tr><td>MVP: WAPE menor que la línea base</td><td><span class="pill" style="background:#e5f4ec;color:#2f8f5b">Cumplida</span></td></tr>
+        <tr><td>Sesgo entre −10 % y +10 %</td><td><span class="pill" style="background:#e5f4ec;color:#2f8f5b">−6,13 %</span></td></tr>
+        <tr><td>≥ 55 % de productos mejor que la base</td><td><span class="pill" style="background:#e5f4ec;color:#2f8f5b">59,2 %</span></td></tr>
+        <tr><td>Piloto real: mejora ≥ 5 % (≤ 74,7 %)</td><td><span class="pill" style="background:var(--amberbg);color:var(--amber)">Por validar</span></td></tr>
+      </table>
+      <div style="font-size:13.5px;color:var(--mut);margin-top:10px">Se mide con backtesting de 8 semanas y, en la app, pronóstico vs venta real cada semana (pantalla 6).</div>
+    </div>
+  </div>
+  <div class="src">Fuente: docs/RESULTADOS.md · hipótesis de precios en docs/business/. Precios de investigación, no aprobados comercialmente.</div>
+  <div class="who">Pamela</div>
+</section>
+
+<!-- 5 Riesgos y supuestos -->
+<section class="s">
+  <div class="k">4 · RIESGOS Y SUPUESTOS CRÍTICOS</div>
+  <h1>Qué puede fallar y cómo lo controlamos</h1>
+  <div class="card" style="margin-top:22px;padding:10px 14px">
+  <table>
+    <tr><th style="width:15%">Tipo</th><th style="width:40%">Riesgo o supuesto</th><th>Mitigación</th></tr>
+    <tr><td><span class="pill" style="background:#e5edfb;color:var(--blue)">Técnico</span></td><td>Mejora modesta (≈2,1 %) y error alto (~77 %).</td><td>Mostrar siempre la referencia y el error histórico; no automatizar compras; meta de 5 % en piloto.</td></tr>
+    <tr><td><span class="pill" style="background:var(--amberbg);color:var(--amber)">Datos</span></td><td>Ventas observadas ≠ demanda real: sin stock ni ventas perdidas; datos de 2009–2011 del Reino Unido.</td><td>Declarar el alcance; pedir inventario en una fase futura; validar con datos recientes.</td></tr>
+    <tr><td><span class="pill" style="background:#e5edfb;color:var(--blue)">Técnico</span></td><td>Pedidos grandes distorsionan el pronóstico; una factura grande no prueba que el cliente sea mayorista.</td><td>Alertas con revisión humana; no eliminar ni etiquetar clientes automáticamente.</td></tr>
+    <tr><td><span class="pill" style="background:#fde9e7;color:var(--red)">Ético</span></td><td>Reidentificación por identificadores de clientes.</td><td>Customer ID excluido del modelo, de pantallas y de exportaciones.</td></tr>
+    <tr><td><span class="pill" style="background:#e5f4ec;color:#2f8f5b">Adopción</span></td><td>Confianza excesiva o rechazo del pronóstico; supuesto de que hay clientes que pagarían.</td><td>Fiabilidad y límites visibles en cada resultado; entrevistas de validación antes de integraciones.</td></tr>
+  </table></div>
+  <div class="src">Detalle en el preinforme, sección 10 · protocolo de entrevistas en docs/validation/.</div>
+  <div class="who">Pablo</div>
+</section>
+
+</body>
+</html>
