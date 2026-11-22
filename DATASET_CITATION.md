@@ -15,7 +15,7 @@ El registro de UCI describe un comercio minorista británico no basado en tienda
 ## Modificaciones realizadas para el análisis
 
 1. Se leen y combinan las dos hojas del libro de Excel.
-2. Se eliminan duplicados exactos en la copia analítica, sin modificar el archivo original.
+2. Se eliminan duplicados exactos en la copia analítica, sin modificar el archivo original (incluye el solapamiento del 1 al 9 de diciembre de 2010 entre las dos hojas del libro).
 3. Se excluyen del objetivo de ventas las facturas identificadas como cancelaciones (prefijo `C`) y las cantidades no positivas.
 4. Se filtran registros de `Country = United Kingdom`.
 5. Se normaliza `StockCode` a mayúsculas antes de agrupar, fusionando variantes que solo difieren por uso de mayúsculas/minúsculas.

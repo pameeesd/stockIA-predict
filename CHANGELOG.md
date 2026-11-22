@@ -32,3 +32,12 @@
 - Reproduce exactamente TSB seleccionado (77,21% WAPE, -5,57% sesgo), baselines, Croston/SBA, segmentación por origen y métricas por SKU del Documento 06.
 - Los modelos ML e híbridos difieren del documento por falta de especificación original; ver `BACKTESTING_RECONSTRUCTION.md`.
 - Se agrega `lightgbm` a `requirements.txt`.
+
+## v0.6 - Corrección del panel y consolidación de resultados (2026-11-22)
+
+- **Corrección:** el panel semanal contaba dos veces las ventas del 1–9 dic 2010 (solapamiento de las hojas del Excel) y guardaba códigos como `10002.0`. Se regeneró desde el Excel original con `01_audit_dataset.py`.
+- Resultado oficial actualizado: TSB 77,00 % WAPE vs 78,65 % del promedio móvil de 4 semanas (≈2,10 % relativo); TSB supera al baseline en 4 de 6 bloques.
+- `reports/backtesting/` y `reports/eda/` regenerados con datos corregidos.
+- Resultados v0.3 movidos a `reports/archive_v0.3/` y documentos previos a `docs/archive/`.
+- `RESULTS_SUMMARY.md` y `BACKTESTING_RECONSTRUCTION.md` reemplazados por `docs/RESULTADOS.md` y `docs/METODOLOGIA.md`.
+- Se agrega `docs/entrega/REQUISITOS_EVALUACION_3.md` (matriz de la pauta).
