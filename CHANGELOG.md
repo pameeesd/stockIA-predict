@@ -72,3 +72,8 @@
 - README reescrito para portafolio: problema, solución, resultados con su aclaración del WAPE, qué demuestra el proyecto, arquitectura (Mermaid), cómo ejecutarlo y límites.
 - `docs/img/` con capturas de la app y `scripts/07_capture_screenshots.py` para regenerarlas (Playwright con Edge/Chrome instalado).
 - Filtros de la app con textos en español y tabla por patrón con formato numérico.
+
+## v1.2 - Infraestructura como código (Terraform) (2026-11-22)
+
+- `infra/terraform/`: VPC, balanceador, ECR y servicio ECS Fargate para publicar la imagen `app`. Escrito y validado (`terraform fmt` y `validate`); **no se ejecutó `plan` ni `apply`** y no hay recursos creados en AWS.
+- `allowed_cidrs` obligatorio (la app no tiene autenticación real), una sola tarea por usar SQLite local, HTTPS opcional con ACM.

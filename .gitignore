@@ -44,3 +44,11 @@ _fuentes/
 # Herramientas locales y base de datos de la app
 .claude/
 data/app/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+!*.tfvars.example

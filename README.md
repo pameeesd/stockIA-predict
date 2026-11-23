@@ -121,6 +121,7 @@ El Excel original de UCI no se versiona (descárguelo en `data/raw/` para regene
 ├── data/demo/          # Descripciones y alertas de demostración (sin identificadores de clientes ni facturas)
 ├── reports/            # backtesting/ (oficial) · eda/ (auditoría) · archive_v0.3/ (exploratorio)
 ├── docs/               # RESULTADOS · METODOLOGIA · entrega/ (preinforme, mockups, presentación) · business/ · archive/
+├── infra/terraform/    # AWS (ECS Fargate, ALB, ECR): escrito y validado, NO desplegado
 ├── Dockerfile · .github/workflows/ci.yml · requirements*.txt
 └── DATASET_CITATION.md · CHANGELOG.md
 ```
@@ -136,7 +137,7 @@ El Excel original de UCI no se versiona (descárguelo en `data/raw/` para regene
 ## Siguientes pasos
 
 - Validar la propuesta con entrevistas a potenciales usuarios (el protocolo está en [`docs/validation/`](docs/validation/)) y la meta de mejora ≥ 5 % con datos reales de un cliente.
-- Infraestructura como código (Terraform) escrita, sin desplegar.
+- Infraestructura en AWS: ya está escrita en [`infra/terraform/`](infra/terraform/) (ECS Fargate + balanceador + ECR); falta desplegarla, y por ahora solo se comprobó que valida, sin `plan` ni `apply`.
 - Con inventario y plazos reales: validar la reposición y medir quiebres y nivel de servicio.
 
 ## Autoría, atribución y licencia
